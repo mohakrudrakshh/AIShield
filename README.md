@@ -4,8 +4,6 @@
 
 AIShield combines a security framework crosswalk with a locally operated LLM security scanner. Explore mappings between OWASP AI risks and industry controls, run controlled adversarial tests against an Ollama model, and review historical scan results in a web dashboard.
 
-> **Project provenance:** AIShield is an adaptation of [GenAI-Security-Crosswalk](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk), originally developed by **Emmanuel Guilherme Junior** and contributors. The existing framework mappings, classifier, evaluation resources, and related tooling originate from that upstream project. The **FastAPI/Ollama scanner, SQLite-backed scan history, and scanner dashboard integration** are additions to this adaptation. This is an independent project and is **not an official OWASP product**.
-
 ![AIShield banner](docs/banner.svg)
 
 ## What AIShield does
