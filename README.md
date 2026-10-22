@@ -218,22 +218,4 @@ AIShield/
 - Scan responses may contain sensitive information if you modify the tests or target. Keep the local SQLite database private.
 - Review generated reports and repository changes before publishing them.
 
-## Credits and attribution
 
-**Original project:** [GenAI-Security-Crosswalk](https://github.com/emmanuelgjr/GenAI-Security-Crosswalk)  
-**Original author:** [Emmanuel Guilherme Junior](https://github.com/emmanuelgjr), with upstream contributors  
-**AIShield adaptation and scanner extension:** [Rudraksh Gupta](https://github.com/mohakrudrakshh)
-
-AIShield retains and builds upon upstream work, including framework mapping data, supporting scripts, and research resources. Credit for those components belongs to their original authors and contributors. The FastAPI/Ollama scanner, SQLite persistence, and scanner UI integration are part of this adaptation.
-
-References to OWASP risk categories describe the frameworks used and do **not** imply OWASP endorsement of AIShield.
-
-## License
-
-The upstream project is distributed under **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)**. Preserve the original copyright and attribution notices and the applicable license when distributing this adaptation.
-
-See the [CC BY-SA 4.0 license](https://creativecommons.org/licenses/by-sa/4.0/) and the original repository for attribution and license details. Before publication, ensure the repository includes the original license text and any required notices.
-
-## Contributing
-
-Contributions and issue reports are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md). Please do not submit live credentials, private model outputs, or unauthorized testing data.
