@@ -1,0 +1,64 @@
+{
+  "id": "owasp-nhi",
+  "name": "OWASP NHI Top 10",
+  "short_name": "NHI Top 10",
+  "version": "1.0",
+  "url": "https://owasp.org/www-project-non-human-identities-top-10/",
+  "license": "CC BY-SA 4.0",
+  "publisher": "OWASP",
+  "category": "identity",
+  "last_synced": "2026-06-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "NHI-1",
+      "title": "Improper Offboarding",
+      "description": "Non-human identities not deactivated or removed when retired remain active beyond their intended use, leaving exploitable dormant credentials."
+    },
+    {
+      "control_id": "NHI-2",
+      "title": "Secret Leakage",
+      "description": "Credentials and secrets exposed in source code, logs, configuration files, or tool payloads significantly raise the risk of a severe breach."
+    },
+    {
+      "control_id": "NHI-3",
+      "title": "Vulnerable Third-Party NHI",
+      "description": "Third-party tools and integrations introduce non-human identities with excessive or unvalidated scope that can be inherited or abused."
+    },
+    {
+      "control_id": "NHI-4",
+      "title": "Insecure Authentication",
+      "description": "Weak, missing, or reusable authentication on machine-to-machine channels lets attackers impersonate or hijack non-human identities."
+    },
+    {
+      "control_id": "NHI-5",
+      "title": "Overprivileged NHI",
+      "description": "Non-human identities granted more permissions than required widen the blast radius when a credential is compromised or misused."
+    },
+    {
+      "control_id": "NHI-6",
+      "title": "Insecure Cloud Deployment Configurations",
+      "description": "Insecure storage and deployment configurations expose credentials in cleartext or leave non-human identities accessible to attackers."
+    },
+    {
+      "control_id": "NHI-7",
+      "title": "Long-Lived Secrets",
+      "description": "Long-lived tokens and credentials without expiry let a compromise persist far beyond a single session or task."
+    },
+    {
+      "control_id": "NHI-8",
+      "title": "Environment Isolation",
+      "description": "Failure to isolate environments lets production non-human identities be reused or exposed in lower-trust contexts."
+    },
+    {
+      "control_id": "NHI-9",
+      "title": "NHI Reuse",
+      "description": "Shared credentials reused across agents, tools, or services let one compromise impersonate or affect many others."
+    },
+    {
+      "control_id": "NHI-10",
+      "title": "Human Use of NHI",
+      "description": "Humans using machine or service-account credentials break per-principal attribution and accountability."
+    }
+  ]
+}

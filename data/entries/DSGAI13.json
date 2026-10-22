@@ -1,0 +1,723 @@
+{
+  "id": "DSGAI13",
+  "name": "Vector Store Platform Security",
+  "source_list": "DSGAI-2026",
+  "version": "2026-Q1",
+  "severity": "High",
+  "aivss_score": null,
+  "audience": [
+    "red-teamer",
+    "security-engineer",
+    "ciso",
+    "compliance",
+    "ml-engineer",
+    "ot-engineer",
+    "auditor",
+    "developer",
+    "data-engineer"
+  ],
+  "mappings": [
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0025",
+      "control_name": "Exfiltrate via Cyber Means",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Vector store content exfiltrated through unauthenticated access or RBAC bypass"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0035",
+      "control_name": "Exfiltrate via ML Inference API",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Embeddings and retrieved passages extracted through vector store query API"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0020",
+      "control_name": "Poison Training Data",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Vector store content poisoned through path traversal or unauthenticated write (CVE-2024-3584)"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0070",
+      "control_name": "RAG Poisoning",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Malicious content injected into vector store RAG knowledge bases to manipulate retrieval results"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MP-2.3",
+      "control_name": "Risk categorisation",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Vector store risks mapped — each deployment assessed for RBAC, encryption, and network exposure"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MS-2.5",
+      "control_name": "Testing — adversarial",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Vector store security testing — RBAC bypass, path traversal, unauthenticated access scenarios"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MS-3.3",
+      "control_name": "Data quality",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Data integrity controls applied to vector store ingestion and query operations"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MG-2.2",
+      "control_name": "Risk response",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Incident response for vector store compromise — containment, data exposure scoping, index rebuild"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 9",
+      "control_name": "Risk management",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All vector store deployments assessed in Art. 9 risk management"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 15",
+      "control_name": "Accuracy, robustness, cybersecurity",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "RBAC, encryption, and CVE patching for vector stores are Art. 15 requirements"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 17",
+      "control_name": "Quality management",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Vector store security monitoring in post-market monitoring programme"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.3",
+      "control_name": "Information access restriction",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "RBAC enforced on all vector store collections — collection-level and namespace-level access control"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.24",
+      "control_name": "Use of cryptography",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Encryption of all vector store data at rest and in transit"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.15",
+      "control_name": "Logging",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Audit logging on all vector store read, write, and admin operations"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.12",
+      "control_name": "Data leakage prevention",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "DLP controls on vector store query results — sensitive content in retrieved passages detected"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.7.2",
+      "control_name": "Data — acquisition",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.7.3",
+      "control_name": "Data — preparation",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.6.1.2",
+      "control_name": "Lifecycle — design",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.10.1",
+      "control_name": "Third-party",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 3",
+      "control_name": "3.11 — Encrypt sensitive data at rest",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 6",
+      "control_name": "6.1 — Establish access control inventory",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 16",
+      "control_name": "16.7 — Use standard-security components",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V4.1.3",
+      "control_name": "Deny by default",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V6.1.1",
+      "control_name": "Sensitive data not stored in cleartext",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V12.1.1",
+      "control_name": "File upload validation",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 1.2",
+      "control_name": "Human user authentication",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "RBAC on all Zone 3 vector stores — no unauthenticated access in any OT environment"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 4.1",
+      "control_name": "Data confidentiality",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Zone 3 vector store content encrypted — equipment documentation and procedure embeddings as sensitive OT data"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 3.7",
+      "control_name": "Software and information integrity monitoring",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Vector store integrity monitoring — anomalous access patterns indicating bulk extraction detected"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§5.4",
+      "control_name": "Data security",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Protect the OT RAG/embedding tier"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§7.1",
+      "control_name": "Security controls",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Harden the vector store deployment"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§7.3",
+      "control_name": "Data flow controls",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Scope retrieval to authorised OT data"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "PR.DS-01",
+      "control_name": "Data Security",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Vector store content encrypted at rest — embeddings treated as sensitive derived data assets"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "PR.AA-05",
+      "control_name": "Identity Management, Authentication & Access Control",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "RBAC on all vector stores — no unauthenticated access in any environment"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "PR.PS-02",
+      "control_name": "Platform Security",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Software managed to reduce risk — vector database CVEs patched promptly"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "DE.CM-09",
+      "control_name": "Continuous Monitoring",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Monitoring for anomalous access — bulk extraction, RBAC bypass attempts detected"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "C2.1",
+      "control_name": "Confidential information protection",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC6.1",
+      "control_name": "Logical access",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC8.1",
+      "control_name": "Change management",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC7.2",
+      "control_name": "Anomaly detection",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 3.5.1",
+      "control_name": "Protect stored account data",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Vector stores in CDE scope encrypted — embeddings of CHD-adjacent content encrypted at rest"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 7.2.1",
+      "control_name": "Restrict access",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "RBAC on all vector stores in PCI scope — no unauthenticated access in any CDE environment"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 6.3.3",
+      "control_name": "Vulnerability management",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Vector database CVEs patched — CVE-2024-3584 class treated as urgent for CDE-scope stores"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 11.3.1",
+      "control_name": "Penetration testing",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Vector store attacks in CDE penetration testing — RBAC bypass, path traversal, bulk extraction"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "Data and Model Security (DMS)",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Vector stores governed as sensitive AI data assets — classified, access-controlled, encrypted, and integrity-verified"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "SCS",
+      "control_name": "Supply Chain Security",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Vector database platforms assessed as AI supply chain components — CVEs tracked, security configuration reviewed"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "MON",
+      "control_name": "Monitoring and Detection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All vector store query and mutation operations logged — anomaly detection for unexpected access patterns"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L1",
+      "control_name": "General ICT — Access Control",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Vector stores require authentication and authorisation — no unauthenticated access, least-privilege query scopes"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "D-SA",
+      "control_name": "Design / Security Architecture",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Per-namespace/tenant access control on the vector store"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "I-SD",
+      "control_name": "Implementation / Secure Deployment",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Authenticated, network-restricted, encrypted-at-rest deployment"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "V-AA",
+      "control_name": "Verification / Architecture Assessment",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Validate auth, isolation, and exposure"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "O-EM",
+      "control_name": "Operations / Environment Management",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Keep the vector DB patched and hardened"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "I",
+      "control_name": "Embedding Disclosure",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "T",
+      "control_name": "Index Tampering",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "E",
+      "control_name": "Namespace Privilege Elevation",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-284",
+      "control_name": "Improper Access Control",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-327",
+      "control_name": "Use of a Broken or Risky Cryptographic Algorithm",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "ACT",
+      "control_name": "Access Control",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Verify per-namespace/tenant access control on the vector store"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "DPT",
+      "control_name": "Data Protection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Confirm embeddings are encrypted at rest and inversion-resistant where required"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "SCT",
+      "control_name": "Supply Chain",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Verify the vector DB version, auth config, and network exposure are hardened"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L2",
+      "control_name": "Data Operations",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L4",
+      "control_name": "Deployment & Infrastructure",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L6",
+      "control_name": "Security & Compliance",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "A",
+      "control_name": "Data & Privacy domain",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "B008",
+      "control_name": "Protect model deployment environment",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "E",
+      "control_name": "Audit trails and logging",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-4",
+      "control_name": "Insecure Authentication",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Enforce strong auth and network restriction"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-5",
+      "control_name": "Over-Privileged NHI",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Per-namespace scoped identities"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-6",
+      "control_name": "Insecure Credential Storage",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Vault all vector-store credentials"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PS.1.1-PS",
+      "control_name": "Protect the vector store",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Authenticated, per-namespace access; encrypt embeddings"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PS.2.1-PS",
+      "control_name": "Integrity of the embedding tier",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Detect tampering of stored vectors"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PW.6.1-PS",
+      "control_name": "Secure configuration",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Harden vector-DB configuration and exposure"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "SC-28",
+      "control_name": "Protection of Information at Rest — embedding encryption",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Encrypt all vector embeddings and metadata at rest using FIPS 140-validated modules; enforce key management per FedRAMP requirements"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "AC-3",
+      "control_name": "Access Enforcement — vector store access control",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Implement RBAC on vector stores; enforce namespace-level access controls; restrict query scope to authorised collections"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "AU-12",
+      "control_name": "Audit Generation — vector store operation tracking",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Generate audit records for all vector store queries, index modifications, and administrative operations"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "CM-6",
+      "control_name": "Configuration Settings — vector database hardening",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Configure vector databases per security baselines; disable default credentials, restrict network access, enforce TLS"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 9",
+      "control_name": "Protection and Prevention – vector store security",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Implement RBAC, encryption at rest and in transit, and integrity verification for all vector stores; enforce access controls on embedding queries"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 8",
+      "control_name": "Identification – vector store inventory",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Register all vector databases and embedding stores in ICT asset inventory; classify sensitivity based on source data"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 12",
+      "control_name": "Backup Policies – embedding backup and recovery",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Maintain versioned backups of vector indices and embedding data; verify integrity on restoration; enable rollback"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 10",
+      "control_name": "Detection – vector store access monitoring",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Monitor vector store queries and index modifications; detect bulk extraction, unauthorised access, and integrity violations"
+    }
+  ],
+  "tools": [
+    {
+      "name": "Weaviate (with RBAC)",
+      "type": "open-source",
+      "url": "https://weaviate.io"
+    },
+    {
+      "name": "Qdrant (with API key auth)",
+      "type": "open-source",
+      "url": "https://qdrant.tech"
+    },
+    {
+      "name": "OWASP ZAP",
+      "type": "open-source",
+      "url": "https://www.zaproxy.org"
+    },
+    {
+      "name": "Weaviate",
+      "type": "open-source",
+      "url": "https://github.com/weaviate/weaviate"
+    },
+    {
+      "name": "Qdrant",
+      "type": "open-source",
+      "url": "https://github.com/qdrant/qdrant"
+    },
+    {
+      "name": "HashiCorp Vault",
+      "type": "commercial",
+      "url": "https://www.vaultproject.io"
+    },
+    {
+      "name": "AWS KMS / Azure Key Vault",
+      "type": "commercial",
+      "url": "https://aws.amazon.com/kms/"
+    },
+    {
+      "name": "Open Policy Agent",
+      "type": "open-source",
+      "url": "https://www.openpolicyagent.org"
+    },
+    {
+      "name": "OpenTelemetry",
+      "type": "open-source",
+      "url": "https://opentelemetry.io"
+    },
+    {
+      "name": "Milvus",
+      "type": "open-source",
+      "url": "https://milvus.io"
+    },
+    {
+      "name": "Pinecone",
+      "type": "commercial",
+      "url": "https://www.pinecone.io"
+    }
+  ],
+  "incidents": [
+    {
+      "name": "Clearview AI biometric bias — $50M class action settlement",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-02454.html",
+      "year": 2025,
+      "incident_id": "INC-02454"
+    },
+    {
+      "name": "Scale AI / Sama contractor data exposure — third-party AI labeling workforce privacy violations",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-04179.html",
+      "year": 2024,
+      "incident_id": "INC-04179"
+    }
+  ],
+  "crossrefs": {
+    "llm_top10": [
+      "LLM08",
+      "LLM02"
+    ],
+    "agentic_top10": [
+      "ASI06"
+    ]
+  },
+  "changelog": [
+    {
+      "date": "2026-03-27",
+      "version": "1.0.0",
+      "change": "Initial entry — generated from AIShield v1.5.1 mapping files",
+      "author": "mohakrudrakshh"
+    }
+  ]
+}

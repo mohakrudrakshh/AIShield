@@ -1,0 +1,52 @@
+
+# ==========================================
+# AIShield - Git Ignore Configuration
+# ==========================================
+
+# Operating System
+.DS_Store
+Thumbs.db
+
+# Temporary and Backup Files
+*.bak
+*.log
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# SQLite - Local Scan History
+backend/aishield.db
+backend/aishield.db-*
+*.db-journal
+
+# Node.js and TypeScript
+node_modules/
+dist/
+build/
+
+# Environment Variables and Secrets
+.env
+.env.*
+!.env.example
+
+# Editor Settings
+.vscode/
+
+# Generated Evaluation and Report Files
+evals/results/
+reports/
+
+# Generated Runtime State
+data/.watch-state.json
+
+# Software Bill of Materials
+sbom.cdx.json
+sbom-content.cdx.json
+
+# Generated Classifier Artifacts
+classifier/index/
+classifier/models/

@@ -1,0 +1,703 @@
+{
+  "id": "DSGAI20",
+  "name": "Model Exfiltration and IP Replication",
+  "source_list": "DSGAI-2026",
+  "version": "2026-Q1",
+  "severity": "High",
+  "aivss_score": null,
+  "audience": [
+    "red-teamer",
+    "security-engineer",
+    "ciso",
+    "compliance",
+    "ml-engineer",
+    "ot-engineer",
+    "auditor",
+    "developer",
+    "data-engineer"
+  ],
+  "mappings": [
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0016",
+      "control_name": "Obtain Capabilities",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Adversary systematically queries model to extract sufficient information to replicate its functionality"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0025",
+      "control_name": "Exfiltrate via Cyber Means",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Query results and model outputs systematically collected and transmitted to adversary infrastructure"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0034",
+      "control_name": "Cost Harvesting",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "High-volume model extraction queries consume significant compute resources — financial impact alongside IP theft"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MP-2.3",
+      "control_name": "Risk categorisation",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Model extraction risks mapped per public-facing deployment — query volume limits, diversity monitoring"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MS-2.5",
+      "control_name": "Testing — adversarial",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Model extraction red team exercises — attempt replication using your own API"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MS-2.6",
+      "control_name": "Testing — data leakage",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Monitoring for systematic extraction patterns — anomalous query diversity and volume"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MG-2.2",
+      "control_name": "Risk response",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Response for detected model extraction — rate limit tightening, session blocking, forensic capture"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 15",
+      "control_name": "Accuracy, robustness, cybersecurity",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "API rate limiting, output perturbation, and extraction monitoring are Art. 15 requirements"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 53(1)(a)",
+      "control_name": "GPAI documentation",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Technical documentation must be protected — model extraction enables circumvention of documentation obligations"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 17",
+      "control_name": "Quality management",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Model extraction detection in post-market monitoring programme"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.5.12",
+      "control_name": "Classification of information",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Model weights, architectures, and fine-tuning configurations classified as intellectual property"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.3",
+      "control_name": "Information access restriction",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "API rate limiting, query restrictions, and anomaly detection limiting systematic model extraction"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.12",
+      "control_name": "Data leakage prevention",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Monitoring for systematic querying patterns indicative of model extraction attacks"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.5.19",
+      "control_name": "Supplier relationships",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Security requirements for any third-party access to proprietary model capabilities"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.7.3",
+      "control_name": "Data — model artefacts",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.6.1.2",
+      "control_name": "Lifecycle — design",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.6.2.6",
+      "control_name": "Lifecycle — testing",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Advanced"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "Cl.6.1",
+      "control_name": "Planning — risk",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 6",
+      "control_name": "6.2 — Allowlist authorised access",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 8",
+      "control_name": "8.6 — Collect DNS query audit logs",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 18",
+      "control_name": "18.1 — Penetration testing",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V4.1.1",
+      "control_name": "Access control per request",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V8",
+      "control_name": "Data Protection",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V10.2.2",
+      "control_name": "Component integrity checking",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 4.1",
+      "control_name": "Data confidentiality",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "OT GenAI model APIs rate-limited — systematic extraction requires high query volumes, rate limiting raises cost"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 1.2",
+      "control_name": "Human user authentication",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Authentication on all OT GenAI model inference APIs — unauthenticated systematic querying blocked"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 6.6",
+      "control_name": "Timely response to events",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Model extraction patterns detected — unusual query diversity alerted as potential AML.T0016"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§5.4",
+      "control_name": "Data security",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Protect model artefacts as OT IP"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§6.2",
+      "control_name": "Risk assessment",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Assess extraction exposure"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§7.3",
+      "control_name": "Data flow controls",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Constrain inference access"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "PR.AA-05",
+      "control_name": "Identity Management, Authentication & Access Control",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "API rate limiting as access control — systematic extraction requires high query volumes"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "DE.CM-01",
+      "control_name": "Continuous Monitoring",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Production API monitoring — unusual query diversity and volume indicative of extraction alerted"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "DE.CM-09",
+      "control_name": "Continuous Monitoring",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Monitoring for extraction behaviour — systematic output space coverage pattern detected"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "ID.RA-01",
+      "control_name": "Risk Assessment",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Model extraction risk documented — IP exposure, CHD reconstruction potential assessed"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "C2.1",
+      "control_name": "Confidential information protection",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC6.1",
+      "control_name": "Logical access",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC7.2",
+      "control_name": "Anomaly detection",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC3.2",
+      "control_name": "Risk assessment",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 7.2.1",
+      "control_name": "Restrict access",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "API rate limiting as access control — systematic model extraction requires high query volumes"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 6.4.1",
+      "control_name": "Public-facing application protection",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Model extraction pattern detection as application protection — systematic API abuse detected"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 10.6.1",
+      "control_name": "Audit log review",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Automated monitoring for extraction patterns — unusual query diversity alerted"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 12.3.2",
+      "control_name": "Targeted risk analysis",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Targeted risk analysis for model extraction — IP exposure, CHD reconstruction potential assessed"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "Data and Model Security (DMS)",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Model weights and training artefacts protected as high-value IP — access controls, encryption, and exfiltration monitoring"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "AI System Integrity (ASI)",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Output restrictions, query rate limiting, and watermarking applied as ASI model extraction defences"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "Monitoring and Detection (MON)",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "API query patterns monitored for model extraction signatures — systematic, high-volume queries from single sources"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "Supply Chain Security (SCS)",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Model weights protected throughout distribution — signed artefacts, access-controlled distribution channels"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "D-TA",
+      "control_name": "Design / Threat Assessment",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Model query-based extraction and weight-theft paths"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "V-ST",
+      "control_name": "Verification / Security Testing",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Simulate model-stealing query campaigns"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "O-OM",
+      "control_name": "Operations / Operational Management",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Per-principal budgets; detect systematic querying"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "G-PC",
+      "control_name": "Governance / Policy & Compliance",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Access-control weights; classify the model as IP"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "I",
+      "control_name": "Model Disclosure",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "T",
+      "control_name": "Replication Tampering",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-284",
+      "control_name": "Improper Access Control",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-201",
+      "control_name": "Insertion of Sensitive Information Into Sent Data",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "DPT",
+      "control_name": "Data Protection",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Detect high-volume, systematic querying characteristic of model extraction"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "AVT",
+      "control_name": "Availability",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Verify per-principal query budgets and rate limits constrain extraction"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "ACT",
+      "control_name": "Access Control",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Confirm model weights are access-controlled and not retrievable via the serving path"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L1",
+      "control_name": "Foundation Models",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L5",
+      "control_name": "Evaluation & Observability",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L6",
+      "control_name": "Security & Compliance",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "A",
+      "control_name": "Data & Privacy domain",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "B004",
+      "control_name": "Prevent AI endpoint scraping",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "B006",
+      "control_name": "Prevent unauthorized AI actions",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "E",
+      "control_name": "Audit trails and logging",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-5",
+      "control_name": "Over-Privileged NHI",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Scope inference and artifact-store identities"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-7",
+      "control_name": "Long-Lived Credentials",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Short-lived keys; per-principal query budgets"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-6",
+      "control_name": "Insecure Credential Storage",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Vault weight-store credentials; encrypt at rest"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PS.1.1-PS",
+      "control_name": "Protect model artefacts",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Access-control weights; scope/budget inference"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PS.3.1-PS",
+      "control_name": "Provenance & release protection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Protect and track model releases"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PW.8.2-PS",
+      "control_name": "Extraction-resistance testing",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Simulate model-stealing query campaigns"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "SC-28",
+      "control_name": "Protection of Information at Rest — model IP encryption",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Encrypt all intellectual property — model weights, proprietary training data, algorithms — at rest with FIPS 140-validated modules"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "AC-3",
+      "control_name": "Access Enforcement — model weight access control",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Enforce strict access control on AI intellectual property; restrict model weight access to minimum necessary personnel with approval workflow"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "AU-12",
+      "control_name": "Audit Generation — IP access tracking",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Generate audit records for all access to AI intellectual property — model weights, architectures, training data; detect unauthorised access and exfiltration"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "SI-4",
+      "control_name": "System Monitoring — extraction pattern detection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Monitor inference endpoints and model registries for systematic extraction patterns; detect model distillation, scraping, and side-channel attacks"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 9",
+      "control_name": "Protection and Prevention – IP protection controls",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Implement encryption, access controls, and DLP for model weights, training data, and proprietary algorithms; enforce multi-factor authentication for IP asset access"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 10",
+      "control_name": "Detection – IP exfiltration detection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Monitor model weight access and download patterns; detect systematic querying indicative of model extraction; alert on anomalous access"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 28–44",
+      "control_name": "Third-Party Risk – IP protection in vendor relationships",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Address IP protection in third-party agreements; ensure vendors cannot access, replicate, or misuse proprietary AI assets"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 17–23",
+      "control_name": "ICT Incident Management – IP theft reporting",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Classify IP exfiltration as ICT-related incidents; report per DORA criteria"
+    }
+  ],
+  "tools": [
+    {
+      "name": "LiteLLM",
+      "type": "open-source",
+      "url": "https://github.com/BerriAI/litellm"
+    },
+    {
+      "name": "Fiddler AI",
+      "type": "commercial",
+      "url": "https://www.fiddler.ai"
+    },
+    {
+      "name": "Watermarking via Watermark-Anything",
+      "type": "open-source",
+      "url": "https://github.com/facebookresearch/watermark-anything"
+    },
+    {
+      "name": "ModelScan",
+      "type": "open-source",
+      "url": "https://github.com/protectai/modelscan"
+    },
+    {
+      "name": "Knockoff Nets detection",
+      "type": "open-source",
+      "url": "https://arxiv.org/abs/1812.02766"
+    },
+    {
+      "name": "Garak",
+      "type": "open-source",
+      "url": "https://github.com/leondz/garak"
+    },
+    {
+      "name": "ART (Adversarial Robustness Toolbox)",
+      "type": "open-source",
+      "url": "https://github.com/Trusted-AI/adversarial-robustness-toolbox"
+    },
+    {
+      "name": "HashiCorp Vault",
+      "type": "commercial",
+      "url": "https://www.vaultproject.io"
+    },
+    {
+      "name": "Nightfall DLP",
+      "type": "commercial",
+      "url": "https://www.nightfall.ai"
+    },
+    {
+      "name": "AWS KMS / Azure Key Vault",
+      "type": "commercial",
+      "url": "https://aws.amazon.com/kms/"
+    }
+  ],
+  "incidents": [],
+  "crossrefs": {
+    "llm_top10": [
+      "LLM02",
+      "LLM10",
+      "LLM04"
+    ],
+    "dsgai_2026": [
+      "DSGAI18",
+      "DSGAI04"
+    ],
+    "agentic_top10": [
+      "ASI04"
+    ]
+  },
+  "changelog": [
+    {
+      "date": "2026-03-27",
+      "version": "1.0.0",
+      "change": "Initial entry — generated from AIShield v1.5.1 mapping files",
+      "author": "mohakrudrakshh"
+    }
+  ]
+}

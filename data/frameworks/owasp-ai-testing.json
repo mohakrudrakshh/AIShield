@@ -1,0 +1,59 @@
+{
+  "id": "owasp-ai-testing",
+  "name": "OWASP AI Testing Guide",
+  "short_name": "AI Testing",
+  "version": "1.0",
+  "url": "https://owasp.org/www-project-ai-security-and-privacy-guide/",
+  "license": "CC BY-SA 4.0",
+  "publisher": "OWASP",
+  "category": "testing",
+  "last_synced": "2026-06-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "ACT",
+      "title": "Access Control",
+      "description": "Test enforcement of authentication, authorisation, per-tool permissions, and retrieval access boundaries across the AI system."
+    },
+    {
+      "control_id": "AST",
+      "title": "Agent-Specific",
+      "description": "Test agentic behaviours including goal integrity, tool-permission boundaries, and multi-step autonomous action control."
+    },
+    {
+      "control_id": "AVT",
+      "title": "Availability",
+      "description": "Test resilience against resource exhaustion, rate-limit evasion, and denial-of-service conditions that degrade the AI service."
+    },
+    {
+      "control_id": "DPT",
+      "title": "Data Protection",
+      "description": "Test safeguards against leakage of training data, embeddings, credentials, and other sensitive content from the AI system."
+    },
+    {
+      "control_id": "IHT",
+      "title": "Input Handling",
+      "description": "Test resistance to prompt injection and adversarial inputs across every channel the model or agent processes."
+    },
+    {
+      "control_id": "LMT",
+      "title": "Logging & Monitoring",
+      "description": "Test that AI actions, anomalies, and abuse patterns are logged with sufficient detail for detection and forensic review."
+    },
+    {
+      "control_id": "MBT",
+      "title": "Model Behaviour",
+      "description": "Test the model for goal consistency, refusal robustness, hallucination rate, and behaviour under adversarial conditions."
+    },
+    {
+      "control_id": "OHT",
+      "title": "Output Handling",
+      "description": "Test that model-generated outputs, parameters, and citations are validated and safely handled by downstream consumers."
+    },
+    {
+      "control_id": "SCT",
+      "title": "Supply Chain",
+      "description": "Test the security of AI supply-chain components including models, datasets, vector stores, and third-party dependencies."
+    }
+  ]
+}

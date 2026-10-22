@@ -1,0 +1,671 @@
+{
+  "id": "DSGAI09",
+  "name": "Multimodal Cross-Channel Leakage",
+  "source_list": "DSGAI-2026",
+  "version": "2026-Q1",
+  "severity": "High",
+  "aivss_score": null,
+  "audience": [
+    "red-teamer",
+    "security-engineer",
+    "ciso",
+    "compliance",
+    "ml-engineer",
+    "ot-engineer",
+    "auditor",
+    "developer",
+    "data-engineer"
+  ],
+  "mappings": [
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0025",
+      "control_name": "Exfiltrate via Cyber Means",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Sensitive content extracted from multimodal inputs (OCR, transcription) transmitted through standard exfiltration paths"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0035",
+      "control_name": "Exfiltrate via ML Inference API",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Multimodal content processed by AI system extracted through inference API queries referencing extracted content"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0024.000",
+      "control_name": "Membership Inference",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Sensitive multimodal content in training data confirmed through membership inference queries"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "GV-1.6",
+      "control_name": "Policies for data privacy",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Multimodal data governance policy — classification propagation from source modality to all extracted forms"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MP-2.3",
+      "control_name": "Risk categorisation",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Multimodal leakage risks mapped per modality — image, audio, video, document — in risk register"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MS-2.6",
+      "control_name": "Testing — data leakage",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Data leakage testing extended to multimodal pipelines — OCR output, transcripts, derived embeddings"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MG-2.4",
+      "control_name": "Risk response — data",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Incident response for multimodal data leakage — content identification, deletion, regulatory notification"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 10",
+      "control_name": "Data and data governance",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Multimodal input governance is an Art. 10 requirement for high-risk systems processing such inputs"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 15",
+      "control_name": "Accuracy, robustness, cybersecurity",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "DLP and access controls on multimodal pipelines are Art. 15 requirements"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 53(1)(a)",
+      "control_name": "GPAI documentation",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Multimodal data governance documented in GPAI technical documentation"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.11",
+      "control_name": "Data masking",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Masking and redaction applied to extracted text from OCR and audio transcription — same as source"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.12",
+      "control_name": "Data leakage prevention",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "DLP applied to all modality-extracted content — text, OCR output, transcripts"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.5.12",
+      "control_name": "Classification of information",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Classification of multimodal inputs must propagate to all derived extracted content"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.24",
+      "control_name": "Use of cryptography",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Encryption of multimodal uploads and all derived content at rest and in transit"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.7.2",
+      "control_name": "Data — acquisition",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.6.2.3",
+      "control_name": "Lifecycle — operational",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.5.2",
+      "control_name": "Impact assessment",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "Cl.8",
+      "control_name": "Operation",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 3",
+      "control_name": "3.13 — Deploy DLP solutions",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 13",
+      "control_name": "13.1 — Centralise security event alerting",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 16",
+      "control_name": "16.12 — Implement code-level security checks",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V5.2.5",
+      "control_name": "Unstructured data sanitised",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V8",
+      "control_name": "Data Protection",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V12",
+      "control_name": "Files/Resources",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 4.1",
+      "control_name": "Data confidentiality",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Extracted OT content from multimodal inputs classified and protected — OCR output of P&ID is as sensitive as the P&ID"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 3.3",
+      "control_name": "Software and information integrity",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Multimodal extraction pipelines validated — no uncontrolled OT data entering unclassified processing"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 6.6",
+      "control_name": "Timely response to events",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Multimodal OT data leakage treated as security event"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§5.4",
+      "control_name": "Data security",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Protect OT data across all media types"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§6.2",
+      "control_name": "Risk assessment",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Assess per-modality leakage paths"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§7.3",
+      "control_name": "Data flow controls",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Extract/redact sensitive content per modality"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "PR.DS-01",
+      "control_name": "Data Security",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Extracted content from multimodal inputs protected — OCR output of sensitive document classified and protected"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "PR.DS-02",
+      "control_name": "Data Security",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Extracted sensitive content encrypted in transit — multimodal extraction pipelines covered"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "DE.CM-01",
+      "control_name": "Continuous Monitoring",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Multimodal extraction output monitored — DLP on OCR results, transcription outputs"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "ID.AM-08",
+      "control_name": "Asset Management",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Multimodal processing pipelines inventoried — what modalities are processed, what is extracted and stored"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "C2.1",
+      "control_name": "Confidential information protection",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "P5.1",
+      "control_name": "Personal information use",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC6.1",
+      "control_name": "Logical access",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC7.2",
+      "control_name": "Anomaly detection",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 3.4.1",
+      "control_name": "PAN rendering",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "PANs extracted from multimodal content masked in all outputs — OCR-extracted PANs are CHD requiring Req 3 treatment"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 3.5.1",
+      "control_name": "Protect stored CHD",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "All CHD extracted from multimodal inputs encrypted at rest — OCR output of a payment document is CHD"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 4.2.1",
+      "control_name": "Encryption in transit",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Multimodal extraction pipelines encrypted in transit where CHD is in scope"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 10.2.1",
+      "control_name": "Logging",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "All PAN access through multimodal pipelines logged"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "Data and Model Security (DMS)",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Data classification and handling requirements apply equally across all modalities — images, audio, video, and documents governed as GenAI assets"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "Monitoring and Detection (MON)",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "DLP and monitoring extended to cover all output modalities — AI-specific monitoring for sensitive content in generated images, audio, or documents"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "Governance and Risk (GOV)",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "AI risk assessment explicitly covers multimodal data flows — blind spots between modality types documented and controlled"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L1",
+      "control_name": "General ICT — Data Protection",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Encryption and access control applied uniformly across all modalities stored or processed by GenAI systems"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "D-TA",
+      "control_name": "Design / Threat Assessment",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Model hidden-data and injection paths across every modality"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "I-SB",
+      "control_name": "Implementation / Secure Build",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Extract and redact sensitive content from all modalities"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "V-ST",
+      "control_name": "Verification / Security Testing",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Probe EXIF/steganography/embedded-text and generated-media leakage"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "I",
+      "control_name": "Cross-Modal Disclosure",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "T",
+      "control_name": "Modality Tampering",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-200",
+      "control_name": "Exposure of Sensitive Information to Unauthorised Actor",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-201",
+      "control_name": "Insertion of Sensitive Information Into Sent Data",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "IHT",
+      "control_name": "Input Handling",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Submit sensitive data hidden in image/audio/document inputs (EXIF, steganography, embedded text)"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "DPT",
+      "control_name": "Data Protection",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Verify redaction operates on extracted content from all modalities"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "OHT",
+      "control_name": "Output Handling",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Confirm generated images/audio do not embed sensitive source data"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L2",
+      "control_name": "Data Operations",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L1",
+      "control_name": "Foundation Models",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "A",
+      "control_name": "Data & Privacy domain",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "B009",
+      "control_name": "Limit output over-exposure",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "B006",
+      "control_name": "Prevent unauthorized AI actions",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-5",
+      "control_name": "Over-Privileged NHI",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Scope each modality pipeline identity"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-2",
+      "control_name": "Secret Leakage",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Strip metadata; scan extracted content for secrets"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PS.1.1-PS",
+      "control_name": "Protect multimodal data stores",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Scope access to multimodal assets"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PW.5.1-PS",
+      "control_name": "Cross-modal extraction & redaction",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Redact extracted content across modalities"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PW.7.2-PS",
+      "control_name": "Multimodal leakage testing",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Test EXIF/steganography/embedded-text paths"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "SC-7",
+      "control_name": "Boundary Protection — cross-modal data flow enforcement",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Enforce boundary controls on data flows between AI modalities; prevent sensitive data from crossing modal boundaries without appropriate classification and authorisation"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "AC-3",
+      "control_name": "Access Enforcement — cross-modal data access",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Enforce consistent access controls across all modalities; restrict cross-modal data access based on sensitivity classification"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "SI-4",
+      "control_name": "System Monitoring — cross-modal leakage detection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Monitor AI outputs across all modalities for cross-channel leakage indicators; detect sensitive content surfacing in unintended modalities"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "AU-2",
+      "control_name": "Event Logging — cross-channel data movement",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Log data movement across modality boundaries; enable detection and investigation of cross-channel leakage"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 9",
+      "control_name": "Protection and Prevention – cross-modal controls",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Implement consistent data protection controls across all modalities; enforce classification and access controls at modality boundaries"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 10",
+      "control_name": "Detection – cross-modal leakage monitoring",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Monitor for sensitive data surfacing across modality boundaries; detect PII, financial data, and credentials in cross-modal outputs"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 17–23",
+      "control_name": "ICT Incident Management – cross-modal breach reporting",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Classify cross-modal data leakage as ICT-related incidents where customer or regulatory impact occurs"
+    }
+  ],
+  "tools": [
+    {
+      "name": "Microsoft Presidio",
+      "type": "open-source",
+      "url": "https://github.com/microsoft/presidio"
+    },
+    {
+      "name": "AWS Macie",
+      "type": "commercial",
+      "url": "https://aws.amazon.com/macie/"
+    },
+    {
+      "name": "Google Cloud DLP",
+      "type": "commercial",
+      "url": "https://cloud.google.com/dlp"
+    },
+    {
+      "name": "AWS Rekognition",
+      "type": "commercial",
+      "url": "https://aws.amazon.com/rekognition/"
+    },
+    {
+      "name": "Presidio",
+      "type": "open-source",
+      "url": "https://github.com/microsoft/presidio"
+    },
+    {
+      "name": "Azure AI Content Safety",
+      "type": "commercial",
+      "url": "https://azure.microsoft.com/en-us/products/ai-services/ai-content-safety"
+    },
+    {
+      "name": "LLM Guard",
+      "type": "open-source",
+      "url": "https://github.com/protectai/llm-guard"
+    },
+    {
+      "name": "Nightfall DLP",
+      "type": "commercial",
+      "url": "https://www.nightfall.ai"
+    },
+    {
+      "name": "Netskope",
+      "type": "commercial",
+      "url": "https://www.netskope.com"
+    },
+    {
+      "name": "AWS Macie / Azure Purview",
+      "type": "commercial",
+      "url": "https://aws.amazon.com/macie/"
+    }
+  ],
+  "incidents": [
+    {
+      "name": "Clearview AI biometric bias — $50M class action settlement",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-02454.html",
+      "year": 2025,
+      "incident_id": "INC-02454"
+    }
+  ],
+  "crossrefs": {
+    "dsgai_2026": [
+      "DSGAI01",
+      "DSGAI14"
+    ],
+    "llm_top10": [
+      "LLM02"
+    ],
+    "agentic_top10": [
+      "ASI01",
+      "ASI03",
+      "ASI07"
+    ]
+  },
+  "changelog": [
+    {
+      "date": "2026-03-27",
+      "version": "1.0.0",
+      "change": "Initial entry — generated from AIShield v1.5.1 mapping files",
+      "author": "mohakrudrakshh"
+    }
+  ]
+}

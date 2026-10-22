@@ -1,0 +1,105 @@
+name: Weekly Source Watch
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'  # Every Monday at 09:00 UTC
+  workflow_dispatch:
+    inputs:
+      watcher:
+        description: 'Run a specific watcher (owasp|arxiv|nvd|frameworks) or leave blank for all'
+        required: false
+        default: ''
+      dry_run:
+        description: 'Dry run (no issues opened)'
+        type: boolean
+        default: false
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  watch:
+    name: Monitor external sources
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+
+      - name: Use Node.js
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: '20'
+
+      - name: Restore watch state
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: data/.watch-state.json
+          key: watch-state-${{ github.run_id }}
+          restore-keys: |
+            watch-state-
+
+      - name: Run source watchers
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          FLAGS=""
+          if [ "${{ inputs.dry_run }}" = "true" ]; then FLAGS="$FLAGS --dry-run"; fi
+          if [ -n "${{ inputs.watcher }}" ]; then FLAGS="$FLAGS --watcher ${{ inputs.watcher }}"; fi
+          node scripts/watch.js $FLAGS
+
+  monthly-regenerate:
+    name: Monthly report regeneration
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+
+      - name: Use Node.js
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: '20'
+
+      - name: Sync incidents from genai_incidents (source of truth)
+        run: node scripts/sync-incidents.mjs
+
+      - name: Regenerate data layer and reports
+        run: |
+          node scripts/generate.js
+          node scripts/compliance-report.js
+          node scripts/incidents-report.js
+
+      - name: Validate
+        run: node scripts/validate.js
+
+      - name: Check for changes
+        id: diff
+        run: |
+          git diff --quiet || echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Create PR with updated reports
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH="auto/monthly-regenerate-$(date +%Y%m%d)"
+          git checkout -b "$BRANCH"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "chore: sync incidents from genai_incidents + regenerate data layer"
+          git push origin "$BRANCH"
+
+          # Tolerate the "GitHub Actions is not permitted to create PRs" repo setting:
+          # branch is pushed regardless; PR creation is best-effort.
+          if ! gh pr create \
+            --title "chore: weekly incident sync + data regeneration ($(date +%Y-%m-%d))" \
+            --body "Automated: synced incidents from the genai_incidents source of truth (scripts/sync-incidents.mjs), regenerated data/entries/, reports/, docs/incidents.js, and validated." \
+            --label automated-watch 2> pr-err.log; then
+            echo "::warning::gh pr create failed — branch '$BRANCH' was pushed but no PR was opened. See pr-err.log."
+            cat pr-err.log
+            echo "To enable automated PRs: Settings → Actions → General → Workflow permissions → 'Allow GitHub Actions to create and approve pull requests'."
+          fi

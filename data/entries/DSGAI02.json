@@ -1,0 +1,782 @@
+{
+  "id": "DSGAI02",
+  "name": "Agent Identity and Credential Exposure",
+  "source_list": "DSGAI-2026",
+  "version": "2026-Q1",
+  "severity": "Critical",
+  "aivss_score": null,
+  "audience": [
+    "red-teamer",
+    "security-engineer",
+    "ciso",
+    "compliance",
+    "ml-engineer",
+    "ot-engineer",
+    "auditor",
+    "developer",
+    "data-engineer"
+  ],
+  "mappings": [
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0016",
+      "control_name": "Obtain Capabilities",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Adversary acquires agent credentials through memory inspection, log analysis, or tool payload capture"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0035",
+      "control_name": "Exfiltrate via ML Inference API",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Agent credentials embedded in inference requests or responses extracted by adversary"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0051",
+      "control_name": "LLM Prompt Injection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Agent API endpoints exploited to extract credentials or elevate access"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "GV-1.6",
+      "control_name": "Policies for data privacy",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Agent identity and credential governance policy — NHI inventory, lifecycle, and access controls"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MP-2.3",
+      "control_name": "Risk categorisation",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Agent credential exposure risks mapped to specific agent deployments in risk register"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MS-2.5",
+      "control_name": "Testing — adversarial",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Adversarial testing covering credential leakage paths — memory, logs, tool payloads"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MG-2.2",
+      "control_name": "Risk response",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Incident response for detected credential exposure — rotation, containment, lateral movement assessment"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 9",
+      "control_name": "Risk management",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Agent credential lifecycle included in Art. 9 risk management system"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 15",
+      "control_name": "Accuracy, robustness, cybersecurity",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Short-lived credentials, NHI inventory, and access controls are Art. 15 requirements"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 17",
+      "control_name": "Quality management",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Agent identity governance procedures documented in quality management system"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.2",
+      "control_name": "Privileged access rights",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Agent credentials managed as privileged access — short-lived, scoped, reviewed"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.5.16",
+      "control_name": "Identity management",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All agent identities inventoried and lifecycle-managed as non-human identities"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.5.17",
+      "control_name": "Authentication information",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Secure management of agent credentials — no hardcoding, rotation enforced"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.15",
+      "control_name": "Logging",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All agent credential use logged with full context — issuance, invocation, expiry"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.3",
+      "control_name": "Information access restriction",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Agent access restricted to minimum scope required per task"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.6.2.3",
+      "control_name": "Lifecycle — operational",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.6.1.2",
+      "control_name": "Lifecycle — design",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "Internal organisation — roles",
+      "control_name": "A.3.3",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "Cl.5",
+      "control_name": "Leadership",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 5",
+      "control_name": "5.4 — Restrict administrator privileges",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 6",
+      "control_name": "6.5 — Require MFA for admin access",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 5",
+      "control_name": "5.3 — Disable dormant accounts",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 12",
+      "control_name": "12.7 — Deploy host-based intrusion detection",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V2.1.1",
+      "control_name": "Passwords minimum 12 characters",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V2",
+      "control_name": "Authentication",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V4",
+      "control_name": "Access Control",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V8",
+      "control_name": "Data Protection",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 1.2",
+      "control_name": "Human user authentication",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All agent credentials unique and traceable — no shared service accounts for OT-accessing agents"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 1.6",
+      "control_name": "Authenticator management",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Agent credential lifecycle managed — issuance, rotation, revocation documented per agent"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 4.1",
+      "control_name": "Data confidentiality",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Agent credentials never transmitted or stored in cleartext within OT network"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 6.1",
+      "control_name": "Timely response to events",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Agent credential exposure treated as security event — immediate rotation, lateral movement assessment"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§5.3",
+      "control_name": "Common ICS vulnerabilities",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Credential exposure is a primary OT compromise vector"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§6.2",
+      "control_name": "Risk assessment",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Assess blast radius of each OT-reaching agent credential"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§7.2",
+      "control_name": "Security controls",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Strong authentication and secret management at the OT boundary"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "PR.AA-01",
+      "control_name": "Identity Management, Authentication & Access Control",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Identities and credentials managed — NHI inventory, lifecycle, short-lived JIT issuance"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "PR.AA-05",
+      "control_name": "Identity Management, Authentication & Access Control",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Access permissions managed — agent credential scope enforced at minimum required"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "DE.CM-01",
+      "control_name": "Continuous Monitoring",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Credential usage monitored — anomalous access patterns, lateral movement detected"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "GV.RM-06",
+      "control_name": "Risk Management Strategy",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Agent credential exposure in risk register — blast radius per deployment documented"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC6.1",
+      "control_name": "Logical access",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC6.3",
+      "control_name": "Access removal",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC9.1",
+      "control_name": "Vendor risk",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC7.2",
+      "control_name": "Anomaly detection",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC5.2",
+      "control_name": "Control activities",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 7.2.1",
+      "control_name": "Restrict access by need to know",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Agent credentials scoped to minimum CDE access — least privilege, quarterly review"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 8.2.1",
+      "control_name": "Unique IDs for access",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Each agent has a unique service identity — no shared credentials across CDE-facing agents"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 10.2.1",
+      "control_name": "Logging of all access",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All agent credential operations in CDE logged — issuance, use, anomalous patterns"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 12.3.2",
+      "control_name": "Targeted risk analysis",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Targeted risk analysis for agent credential scope in CDE — blast radius if credentials compromised"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "AI System Integrity (ASI)",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Agents operate under least-privilege credential scope — credential lifetime bounded to agent session, scope documented in AI risk assessment"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "Governance and Risk (GOV)",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Agent credential policy documented in AI governance framework — scope, lifetime, rotation, revocation all covered"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "MON",
+      "control_name": "Monitoring and Detection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All agent credential operations logged — anomaly detection covers unexpected scope expansion or access outside session bounds"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L1",
+      "control_name": "General ICT — Access Control",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Short-lived tokens for all agent interactions — secrets management integrated with IAM platform"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "D-SA",
+      "control_name": "Design / Security Architecture",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Each agent acts under a least-privilege, time-bound identity — never a shared secret"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "I-SD",
+      "control_name": "Implementation / Secure Deployment",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Inject secrets from a vault at runtime; never bake them into prompts or images"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "G-PC",
+      "control_name": "Governance / Policy & Compliance",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Mandate rotation, scoping, and prohibition of secrets in model context"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "O-EM",
+      "control_name": "Operations / Environment Management",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Scrub secrets from logs, memory, and tool payloads"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "S",
+      "control_name": "Credential Spoofing",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "I",
+      "control_name": "Secret Disclosure",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "E",
+      "control_name": "Privilege Elevation",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-312",
+      "control_name": "Cleartext Storage of Sensitive Information",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-798",
+      "control_name": "Use of Hard-coded Credentials",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-522",
+      "control_name": "Insufficiently Protected Credentials",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "ACT",
+      "control_name": "Access Control",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Verify each agent acts under a scoped, short-lived identity, not a shared high-privilege secret"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "AST",
+      "control_name": "Agent-Specific",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Inspect agent memory, scratchpads, and tool payloads for plaintext secrets"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "DPT",
+      "control_name": "Data Protection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Confirm credentials are never embedded in prompts, embeddings, or persisted state"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L6",
+      "control_name": "Security & Compliance",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L2",
+      "control_name": "Data Operations",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L7",
+      "control_name": "Agent Ecosystem",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "A",
+      "control_name": "Data & Privacy domain",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "B007",
+      "control_name": "Enforce user access privileges",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "B008",
+      "control_name": "Protect model deployment environment",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "E",
+      "control_name": "Audit trails and logging",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-2",
+      "control_name": "Secret Leakage",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Secret-scan all agent I/O; never embed secrets in context"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-6",
+      "control_name": "Insecure Credential Storage",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Store all credentials in a vault, encrypted at rest"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-7",
+      "control_name": "Long-Lived Credentials",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Issue short-lived, auto-rotated tokens"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-5",
+      "control_name": "Over-Privileged NHI",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Scope each agent identity to least privilege"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PS.1.1-PS",
+      "control_name": "Protect secrets and artefacts from unauthorised access",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Vault all credentials; keep secrets out of prompts/memory"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PS.3.1-PS",
+      "control_name": "Provenance & protected release management",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Track and protect signed artefacts and their access"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PW.5.1-PS",
+      "control_name": "Secure credential handling in code",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "No hardcoded secrets; inject from a vault at runtime"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "IA-5",
+      "control_name": "Authenticator Management — agent credential lifecycle",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Manage AI agent credentials with short-lived, task-scoped tokens; enforce rotation schedules; prohibit long-lived secrets in agent memory or logs"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "AC-6",
+      "control_name": "Least Privilege — agent permission scoping",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Restrict agent permissions to minimum necessary for each task; enforce that agent privilege cannot exceed the authorising user's privilege"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "AU-12",
+      "control_name": "Audit Generation — credential event tracking",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Generate audit records for all credential issuance, usage, rotation, and expiry events across agent operations"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "SC-28",
+      "control_name": "Protection of Information at Rest — credential encryption",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Encrypt all stored agent credentials using FIPS 140-validated modules; enforce hardware-backed key management for high-value tokens"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 9",
+      "control_name": "Protection and Prevention – credential protection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Implement encrypted credential storage, short-lived tokens, and secure agent runtime environments; enforce least privilege for all agent identities"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 8",
+      "control_name": "Identification – agent identity inventory",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Register all agent identities, service accounts, and API keys in the ICT asset inventory; classify credential sensitivity"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 10",
+      "control_name": "Detection – credential misuse monitoring",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Monitor for anomalous agent credential usage — unexpected privilege escalation, cross-boundary access, or credential reuse across sessions"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 17–23",
+      "control_name": "ICT Incident Management – credential compromise reporting",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Classify agent credential compromise as ICT-related incidents; report per DORA criteria when customer or system impact occurs"
+    }
+  ],
+  "tools": [
+    {
+      "name": "HashiCorp Vault",
+      "type": "open-source",
+      "url": "https://www.vaultproject.io"
+    },
+    {
+      "name": "Teleport",
+      "type": "commercial",
+      "url": "https://goteleport.com"
+    },
+    {
+      "name": "Entro Security",
+      "type": "commercial",
+      "url": "https://entro.security"
+    },
+    {
+      "name": "SPIFFE / SPIRE",
+      "type": "open-source",
+      "url": "https://spiffe.io"
+    },
+    {
+      "name": "AWS Secrets Manager",
+      "type": "commercial",
+      "url": "https://aws.amazon.com/secrets-manager/"
+    },
+    {
+      "name": "SPIRE",
+      "type": "open-source",
+      "url": "https://github.com/spiffe/spire"
+    },
+    {
+      "name": "AWS Secrets Manager / Azure Key Vault",
+      "type": "commercial",
+      "url": "https://aws.amazon.com/secrets-manager/"
+    },
+    {
+      "name": "CyberArk",
+      "type": "commercial",
+      "url": "https://www.cyberark.com"
+    },
+    {
+      "name": "SPIFFE/SPIRE",
+      "type": "open-source",
+      "url": "https://spiffe.io"
+    }
+  ],
+  "incidents": [
+    {
+      "name": "Chat & Ask AI app — 300 million messages from 25 million users exposed via misconfigured Firebase",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-00740.html",
+      "year": 2026,
+      "incident_id": "INC-00740"
+    },
+    {
+      "name": "Moltbook — vibe-coded social network exposes 1.5M API tokens and 35K emails",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-01465.html",
+      "year": 2026,
+      "incident_id": "INC-01465"
+    },
+    {
+      "name": "GPT-4.1 jailbreak via tool poisoning",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-02646.html",
+      "year": 2025,
+      "incident_id": "INC-02646"
+    },
+    {
+      "name": "Italy Garante orders ChatGPT GDPR enforcement — consent and data minimization failures",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-02774.html",
+      "year": 2025,
+      "incident_id": "INC-02774"
+    }
+  ],
+  "crossrefs": {
+    "agentic_top10": [
+      "ASI03",
+      "ASI07",
+      "ASI02"
+    ],
+    "dsgai_2026": [
+      "DSGAI01"
+    ],
+    "llm_top10": [
+      "LLM06",
+      "LLM02"
+    ]
+  },
+  "changelog": [
+    {
+      "date": "2026-03-27",
+      "version": "1.0.0",
+      "change": "Initial entry — generated from AIShield v1.5.1 mapping files",
+      "author": "mohakrudrakshh"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "id": "nist-sp-800-218a",
+  "name": "NIST SP 800-218A",
+  "short_name": "SP 800-218A",
+  "version": "1.0",
+  "url": "https://csrc.nist.gov/pubs/sp/800/218/a/final",
+  "license": "Public Domain",
+  "publisher": "NIST",
+  "category": "appsec",
+  "last_synced": "2026-04-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "PS.1.1-PS",
+      "title": "Protect all code from unauthorised access — data access audit controls",
+      "description": "Implement comprehensive audit logging for all access to training data, model weights, embedding stores, and pipeline configuration; enforce tamper-evident log storage; Implement controls to detect and prevent unauthorised AI tool usage that processes organisational data outside governed pipelines; Protect training data, model weights, adapters, and pipeline artefacts from unauthorised modification; enforce write access controls and integrity monitoring"
+    },
+    {
+      "control_id": "RV.1.1-PS",
+      "title": "Identify and confirm vulnerabilities — audit-driven detection",
+      "description": "Establish procedures to detect data access anomalies using audit logs; define triage workflows for suspicious access patterns across AI data stores; Establish procedures to identify data exposure from shadow AI tool usage; define triage and remediation workflows for unsanctioned data processing; Establish procedures to detect data misuse and manipulation in production including monitoring for purpose-scope violations and data manipulation patterns"
+    },
+    {
+      "control_id": "PW.1.1-PS",
+      "title": "Define security requirements — data inventory and classification",
+      "description": "Define security requirements mandating a complete data inventory covering all datasets used in training, fine-tuning, RAG, and evaluation; classify by sensitivity; Define security requirements governing how datasets may be combined for AI training and inference; require aggregation impact assessments before merging datasets; Define security requirements governing data retention periods, deletion procedures, and right-to-erasure compliance for all data in AI pipelines"
+    },
+    {
+      "control_id": "PW.2.1-PS",
+      "title": "Design software — data flow transparency",
+      "description": "Design AI pipelines with documented data flow diagrams showing data origins, transformations, storage locations, and access points; maintain as living artefacts; Design AI data pipelines with built-in lineage tracking; require lineage metadata capture at every transformation step as an explicit design requirement; Design AI data pipelines with aggregation controls that prevent combination of datasets whose joint sensitivity exceeds authorised classification levels"
+    },
+    {
+      "control_id": "PW.4.1-PS",
+      "title": "Reuse existing well-secured software — AI tool vetting",
+      "description": "Vet all AI tools, services, and plugins before organisational adoption; verify data handling, security posture, and compliance capabilities; Vet all third-party datasets, pre-trained models, and pipeline components for provenance, integrity, and potential poisoning before use; Vet all datasets for quality, completeness, representativeness, and fitness for purpose before use in any training or evaluation pipeline"
+    },
+    {
+      "control_id": "PS.3.1-PS",
+      "title": "Archive and protect software releases — versioned artefact management",
+      "description": "Maintain versioned, integrity-verified snapshots of all training data, model checkpoints, and pipeline artefacts; enable rollback to known-good state; Maintain versioned dataset snapshots with provenance metadata recording origin, collection method, processing steps, and quality metrics; Maintain end-to-end data lineage records linking every model version to its training data, transformations, and intermediate artefacts"
+    },
+    {
+      "control_id": "RV.3.1-PS",
+      "title": "Analyse root causes — poisoning forensics",
+      "description": "When poisoning is detected, conduct forensic analysis to identify corrupted records, trace to source, and determine blast radius across dependent models; When model failures trace to synthetic training data, conduct root cause analysis of the generation process, source data, and privacy mechanism; When discriminatory behaviour is identified, conduct root cause analysis tracing bias to specific training data sources, labelling processes, or preprocessing steps"
+    },
+    {
+      "control_id": "PS.2.1-PS",
+      "title": "Verify software integrity — data provenance verification",
+      "description": "Verify provenance and integrity of all datasets used in training, fine-tuning, and evaluation; maintain cryptographic attestation of data origin and chain of custody; Verify integrity of all third-party data deliveries using checksums, signatures, or schema validation; detect tampering or corruption before pipeline ingestion; Verify that the model artifact serving output has not been tampered with; maintain signed model checksums and verify before deployment"
+    },
+    {
+      "control_id": "PW.5.1-PS",
+      "title": "Secure coding — data handling in AI pipelines",
+      "description": "Enforce secure coding practices for all data handling in AI pipelines; implement output filtering, PII detection, and data masking before model responses reach consumers; Implement secure coding practices for all code paths that consume LLM output; treat model responses as untrusted input to downstream systems; Enforce secure coding standards prohibiting embedding of credentials, API keys, or sensitive configuration data in system prompts or model context"
+    },
+    {
+      "control_id": "PW.7.2-PS",
+      "title": "Review for security vulnerabilities — data leakage review",
+      "description": "Include data leakage and memorisation scenarios in pre-release security reviews; verify that outputs cannot reveal training data or sensitive context; Review synthetic data for bias inheritance, privacy leakage, and statistical fidelity before use in training pipelines; verify privacy guarantees are meaningful; Include data misuse and manipulation scenarios in pre-release reviews; verify that purpose limitation controls are enforced and cannot be bypassed"
+    },
+    {
+      "control_id": "PW.8.2-PS",
+      "title": "Test for security vulnerabilities — synthetic data adversarial testing",
+      "description": "Conduct adversarial testing of synthetic data for membership inference, attribute inference, and reconstruction attacks to validate privacy claims; Conduct adversarial testing for discriminatory outputs; test model behaviour across demographic groups, intersectional categories, and edge cases; Conduct adversarial testing (red-teaming) against prompt injection vectors before each production release; cover direct, indirect, and multimodal injection paths"
+    },
+    {
+      "control_id": "RV.2.1-PS",
+      "title": "Assess, prioritise, and remediate — deletion request remediation",
+      "description": "Define procedures to assess and remediate data deletion requests including impact analysis on trained models and retraining requirements; Define remediation procedures for availability incidents including model rollback, rate limit tightening, and cost circuit breakers; Define and test remediation procedures for availability incidents — rate limit tightening, model rollback, cost circuit breaker activation"
+    },
+    {
+      "control_id": "PW.6.1-PS",
+      "title": "Secure configuration",
+      "description": "Configure the compilation, interpreter, and build processes to improve executable security for AI systems."
+    }
+  ]
+}

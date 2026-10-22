@@ -1,0 +1,684 @@
+{
+  "id": "DSGAI17",
+  "name": "Data Availability and Resilience Failures",
+  "source_list": "DSGAI-2026",
+  "version": "2026-Q1",
+  "severity": "High",
+  "aivss_score": null,
+  "audience": [
+    "red-teamer",
+    "security-engineer",
+    "ciso",
+    "compliance",
+    "ml-engineer",
+    "ot-engineer",
+    "auditor",
+    "developer",
+    "data-engineer"
+  ],
+  "mappings": [
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0029",
+      "control_name": "Denial of AI Service",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Adversary saturates GenAI pipeline — vector store, RAG retrieval, or inference endpoint rendered unavailable"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0034",
+      "control_name": "Cost Harvesting",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Adversary triggers disproportionate resource consumption through crafted queries — financial or operational DoS"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0057",
+      "control_name": "LLM Data Leakage",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Pipeline failures may expose data through error messages or fallback paths that lack normal access controls"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MP-4.1",
+      "control_name": "Risk tolerance",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Availability risk tolerance defined for AI pipelines — RTO/RPO per component documented"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MS-2.5",
+      "control_name": "Testing — adversarial",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Resilience testing of RAG pipelines — vector store saturation, stale replica, index corruption"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MG-2.2",
+      "control_name": "Risk response",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Incident response for AI pipeline availability failures — silent degradation detection and response"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MG-3.2",
+      "control_name": "Residual risk",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Residual availability risk documented — BCP coverage for AI pipeline components"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 15",
+      "control_name": "Accuracy, robustness, cybersecurity",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Vector store redundancy, circuit breakers, and staleness detection are Art. 15 requirements"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 17",
+      "control_name": "Quality management",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "AI pipeline availability monitoring in quality management and post-market monitoring programme"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.5.30",
+      "control_name": "ICT readiness for business continuity",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "AI pipeline availability requirements included in BCP — RTO/RPO defined for vector stores and RAG components"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.13",
+      "control_name": "Backup",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Backup and recovery for all AI data assets — vector stores, embedding indexes, RAG corpora"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.14",
+      "control_name": "Redundancy",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Redundancy and failover for production RAG and vector store infrastructure"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.5.24",
+      "control_name": "Incident management",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Incident management procedures covering AI pipeline availability failures"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.6.2.8",
+      "control_name": "Lifecycle — decommissioning",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.6.2.6",
+      "control_name": "Lifecycle — testing",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "Cl.8",
+      "control_name": "Operation",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "Improvement",
+      "control_name": "Cl.10",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 11",
+      "control_name": "11.1 — Establish recovery capability",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 11",
+      "control_name": "11.4 — Test data recovery",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 13",
+      "control_name": "13.8 — Deploy DNS filtering",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V11",
+      "control_name": "Business Logic",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V13",
+      "control_name": "API",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 7.6",
+      "control_name": "Denial of service protection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Circuit breakers preventing OT GenAI service degradation from affecting process control"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 7.7",
+      "control_name": "Control system backup",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "OT GenAI failures cannot affect backup and recovery of process control — independence verified"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 6.6",
+      "control_name": "Timely response to events",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "OT GenAI pipeline failures treated as security events — process control fallback activated"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 5.1",
+      "control_name": "Information flow restriction",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "OT GenAI availability events do not propagate to process control — architectural separation"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§5.6",
+      "control_name": "Resilience & recovery",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "OT availability depends on recoverable data/model assets"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§6.2",
+      "control_name": "Risk assessment",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Assess availability impact of GenAI data loss"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§7.2",
+      "control_name": "Security controls",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Backup, recovery, and fail-safe design"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "PR.IR-01",
+      "control_name": "Infrastructure Resilience",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Networks and environments protected for resilience — circuit breakers, freshness monitoring, redundancy"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "DE.CM-01",
+      "control_name": "Continuous Monitoring",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "GenAI pipeline health monitored — freshness, availability metrics reviewed continuously"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "RS.MI-01",
+      "control_name": "Incident Mitigation",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Pipeline failures contained — circuit breaker activation, graceful degradation, user notification"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "RC.RP-01",
+      "control_name": "Incident Recovery",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Recovery plan includes GenAI pipeline failures — BCP covers AI availability, RTO/RPO defined"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "A1.1",
+      "control_name": "Availability policy",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "A1.2",
+      "control_name": "Environmental protections",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC7.2",
+      "control_name": "Anomaly detection",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC3.2",
+      "control_name": "Risk assessment",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 12.3.2",
+      "control_name": "Targeted risk analysis",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Targeted risk analysis for GenAI availability in payment processing — silent failure impact on fraud detection"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 1.3.2",
+      "control_name": "Network security",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Rate limiting protecting availability of CDE-facing LLM endpoints — DoS prevention"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 10.6.1",
+      "control_name": "Audit log review",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Automated monitoring for GenAI pipeline health in CDE — freshness and availability metrics reviewed"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 12.10.1",
+      "control_name": "Incident response",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Incident response procedure covers GenAI pipeline failures affecting payment processing"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L1",
+      "control_name": "General ICT — Business Continuity",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All GenAI critical assets backed up — training data, model weights, embedding stores, RAG corpora subject to backup and recovery testing"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "IRS",
+      "control_name": "Incident Response",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "AI incident response plan covers availability failures — model rollback procedure, RAG corpus recovery, embedding store restoration"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "MON",
+      "control_name": "Monitoring and Detection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "GenAI asset availability monitored — alerts on data store unavailability, model health degradation, pipeline failures"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "Data and Model Security (DMS)",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Model weights and training artefacts protected against accidental or malicious deletion — versioned storage, immutable backups"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "O-EM",
+      "control_name": "Operations / Environment Management",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Back up corpora, weights, and indices with tested restore"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "O-IM",
+      "control_name": "Operations / Incident Management",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Detect and respond to exhaustion/degradation"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "D-SA",
+      "control_name": "Design / Security Architecture",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Design quotas, rate limits, and graceful degradation"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "D",
+      "control_name": "Availability Denial",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-400",
+      "control_name": "Uncontrolled Resource Consumption",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-770",
+      "control_name": "Allocation of Resources Without Limits",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "AVT",
+      "control_name": "Availability",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Drive high-volume and high-cost requests; verify rate limits and quotas hold"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "LMT",
+      "control_name": "Logging & Monitoring",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Confirm degradation and exhaustion are detected and alerted"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "SCT",
+      "control_name": "Supply Chain",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Verify datasets, weights, and indices have tested restore procedures"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L4",
+      "control_name": "Deployment & Infrastructure",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L7",
+      "control_name": "Agent Ecosystem",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L5",
+      "control_name": "Evaluation & Observability",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "D",
+      "control_name": "Reliability domain",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "A",
+      "control_name": "Data & Privacy domain",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "E",
+      "control_name": "Audit trails and logging",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-1",
+      "control_name": "Improper Offboarding",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Lifecycle-managed identities for data/model assets"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-8",
+      "control_name": "Environment Isolation Failure",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Separate credentials per environment"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PS.3.1-PS",
+      "control_name": "Archive & protect releases",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Back up corpora, weights, indices with tested restore"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "RV.2.1-PS",
+      "control_name": "Assess & remediate availability incidents",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Respond to exhaustion/loss events"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PW.1.1-PS",
+      "control_name": "Resilience requirements",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Require quotas, rate limits, graceful degradation"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "CP-9",
+      "control_name": "Information System Backup — AI data asset backup",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Implement versioned backups of critical AI data assets — embeddings, indices, training data, model weights — with verified restoration procedures"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "CP-10",
+      "control_name": "Information System Recovery and Reconstitution — pipeline restoration",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Define and test recovery procedures for AI data pipelines; implement failover for critical RAG and embedding services"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "SI-4",
+      "control_name": "System Monitoring — pipeline health monitoring",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Monitor all AI data pipelines for health — RAG retrieval latency, embedding index integrity, data freshness; alert on degradation"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "CA-7",
+      "control_name": "Continuous Monitoring — availability metrics",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Include AI data pipeline availability in continuous monitoring; track uptime, latency, and data freshness metrics"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 11",
+      "control_name": "Response and Recovery – AI data service recovery",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Implement response and recovery procedures for AI data pipeline failures; define recovery time objectives and fallback mechanisms"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 12",
+      "control_name": "Backup Policies – AI data backup",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Maintain versioned backups of critical AI data assets — embeddings, indices, training data, model weights; test restoration procedures"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 24–27",
+      "control_name": "Resilience Testing – data pipeline resilience",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Include AI data pipeline failure scenarios in resilience testing; test failover, degraded mode operation, and recovery procedures"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 10",
+      "control_name": "Detection – pipeline health monitoring",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Monitor AI data pipeline health; detect stale data, index corruption, and availability degradation in real time"
+    }
+  ],
+  "tools": [
+    {
+      "name": "OpenTelemetry",
+      "type": "open-source",
+      "url": "https://opentelemetry.io"
+    },
+    {
+      "name": "Resilience4j",
+      "type": "open-source",
+      "url": "https://resilience4j.readme.io"
+    },
+    {
+      "name": "DVC (Data Version Control)",
+      "type": "open-source",
+      "url": "https://github.com/iterative/dvc"
+    },
+    {
+      "name": "MLflow",
+      "type": "open-source",
+      "url": "https://github.com/mlflow/mlflow"
+    },
+    {
+      "name": "Velero",
+      "type": "open-source",
+      "url": "https://github.com/vmware-tanzu/velero"
+    },
+    {
+      "name": "Chaos Monkey",
+      "type": "open-source",
+      "url": "https://github.com/Netflix/chaosmonkey"
+    },
+    {
+      "name": "AWS Backup / Azure Backup",
+      "type": "commercial",
+      "url": "https://aws.amazon.com/backup/"
+    },
+    {
+      "name": "Prometheus",
+      "type": "open-source",
+      "url": "https://prometheus.io"
+    },
+    {
+      "name": "PagerDuty",
+      "type": "commercial",
+      "url": "https://www.pagerduty.com"
+    },
+    {
+      "name": "Great Expectations",
+      "type": "open-source",
+      "url": "https://greatexpectations.io"
+    },
+    {
+      "name": "Evidently",
+      "url": "https://github.com/evidentlyai/evidently",
+      "type": "open-source"
+    },
+    {
+      "name": "WhyLogs",
+      "url": "https://github.com/whylabs/whylogs",
+      "type": "open-source"
+    }
+  ],
+  "incidents": [
+    {
+      "name": "Clearview AI biometric bias — $50M class action settlement",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-02454.html",
+      "year": 2025,
+      "incident_id": "INC-02454"
+    },
+    {
+      "name": "Microsoft-Powered New York City Chatbot Advises Illegal Practices",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-04007.html",
+      "year": 2024,
+      "incident_id": "INC-04007"
+    }
+  ],
+  "crossrefs": {
+    "llm_top10": [
+      "LLM10",
+      "LLM09"
+    ],
+    "agentic_top10": [
+      "ASI08",
+      "ASI09"
+    ]
+  },
+  "changelog": [
+    {
+      "date": "2026-03-27",
+      "version": "1.0.0",
+      "change": "Initial entry — generated from AIShield v1.5.1 mapping files",
+      "author": "mohakrudrakshh"
+    }
+  ]
+}

@@ -1,0 +1,658 @@
+{
+  "id": "DSGAI15",
+  "name": "Over-Broad Context Windows",
+  "source_list": "DSGAI-2026",
+  "version": "2026-Q1",
+  "severity": "High",
+  "aivss_score": null,
+  "audience": [
+    "red-teamer",
+    "security-engineer",
+    "ciso",
+    "compliance",
+    "ml-engineer",
+    "ot-engineer",
+    "auditor",
+    "developer",
+    "data-engineer"
+  ],
+  "mappings": [
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0051",
+      "control_name": "LLM Prompt Injection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Prompt injection via LLM interface accesses all content injected into over-broad context window"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0025",
+      "control_name": "Exfiltrate via Cyber Means",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Over-broad context window content exfiltrated through successful injection — adversary retrieves aggregated sensitive data"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0035",
+      "control_name": "Exfiltrate via ML Inference API",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Inference API queries designed to surface maximum context window content through crafted prompts"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MP-2.3",
+      "control_name": "Risk categorisation",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "Context window risks mapped — identify which deployments aggregate data across trust domains"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MS-2.5",
+      "control_name": "Testing — adversarial",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "Adversarial testing of context window content — cross-trust-domain aggregation and injection scenarios"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MS-2.6",
+      "control_name": "Testing — data leakage",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "Data leakage testing on context window content — sensitive data accessible to injection attacks"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MG-2.2",
+      "control_name": "Risk response",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "Response for context window exploitation — session containment, content audit, impact scoping"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 10",
+      "control_name": "Data and data governance",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Context window data governance — minimum content, classification tracking — is Art. 10 requirement"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 15",
+      "control_name": "Accuracy, robustness, cybersecurity",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Context minimisation and access controls are Art. 15 cybersecurity measures"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 17",
+      "control_name": "Quality management",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Context window security in post-market monitoring programme"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.3",
+      "control_name": "Information access restriction",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "Context window content restricted to minimum required — no cross-trust-domain aggregation without access control"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.5.12",
+      "control_name": "Classification of information",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "All content injected into context window classified — highest classification drives handling requirement"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.11",
+      "control_name": "Data masking",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "Sensitive content redacted or masked before injection into shared context windows"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.5.14",
+      "control_name": "Information transfer",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "Controls on content transfer into context windows — documented data flow for each RAG pipeline"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.7.2",
+      "control_name": "Data — minimisation",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.6.2.3",
+      "control_name": "Lifecycle — operational",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.5.2",
+      "control_name": "Impact assessment",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "Cl.8",
+      "control_name": "Operation",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 3",
+      "control_name": "3.3 — Configure data access control lists",
+      "tier": "Foundational",
+      "scope": "Build"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 3",
+      "control_name": "3.1 — Data minimisation",
+      "tier": "Foundational",
+      "scope": "Build"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 16",
+      "control_name": "16.6 — Security requirements",
+      "tier": "Foundational",
+      "scope": "Build"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V4.1.3",
+      "control_name": "Deny by default access control",
+      "tier": "Foundational",
+      "scope": "Build"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V8",
+      "control_name": "Data Protection",
+      "tier": "Foundational",
+      "scope": "Build"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V3",
+      "control_name": "Session Management",
+      "tier": "Foundational",
+      "scope": "Build"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 2.2",
+      "control_name": "Least privilege",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "OT context assembly restricted to minimum data required for the specific query — not broad process datasets"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 4.1",
+      "control_name": "Data confidentiality",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "OT context window classification tracking — highest classification drives response handling"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 5.1",
+      "control_name": "Information flow restriction",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Context assembly limits in Zone 3 — cross-trust-domain aggregation restricted"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§5.3",
+      "control_name": "Common ICS vulnerabilities",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Aggregated OT data concentrates risk"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§6.2",
+      "control_name": "Risk assessment",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Assess context-assembly data need"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§7.3",
+      "control_name": "Data flow controls",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Minimise and authorise context data"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "PR.AA-05",
+      "control_name": "Identity Management, Authentication & Access Control",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Access permissions applied to context assembly — minimum-necessary context injection enforced"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "PR.DS-01",
+      "control_name": "Data Security",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Context window content protected — highest classification of any included document drives handling"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "DE.CM-01",
+      "control_name": "Continuous Monitoring",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Context assembly monitored — over-broad injection patterns detected"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "ID.RA-01",
+      "control_name": "Risk Assessment",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Context window risks documented — which deployments aggregate data across trust domains"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC6.1",
+      "control_name": "Logical access",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "C2.1",
+      "control_name": "Confidential information protection",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC5.2",
+      "control_name": "Control activities",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC3.2",
+      "control_name": "Risk assessment",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 7.2.1",
+      "control_name": "Restrict access",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Context assembly restricted to minimum CHD required — users cannot access CHD beyond their authorised scope through context injection"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 3.4.1",
+      "control_name": "PAN rendering",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "PANs in context window masked — cleartext PANs in LLM context is a Req 3 exposure"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 12.3.2",
+      "control_name": "Targeted risk analysis",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Targeted risk analysis for context window CHD exposure — blast radius of over-broad injection documented"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 10.2.1",
+      "control_name": "Logging",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Context window assembly logged — all CHD accessed through context injection traceable"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "Data and Model Security (DMS)",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Context window population governed by data minimisation principle — only data necessary for the current task included"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "AI System Integrity (ASI)",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "AI system integrity controls include context window scope limits — over-broad context documented as a risk in AI risk assessment"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "Governance and Risk (GOV)",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Over-broad context included as a risk factor in AI risk assessment — treatment controls and data minimisation requirements documented"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L1",
+      "control_name": "General ICT — Data Protection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Data minimisation principle applied as a baseline data protection requirement for all AI system design"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "D-SA",
+      "control_name": "Design / Security Architecture",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Assemble only need-to-know data into context per task"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "D-SR",
+      "control_name": "Design / Security Requirements",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Require each context item to be authorised for the caller"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "V-ST",
+      "control_name": "Verification / Security Testing",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Attempt to extract the full assembled context"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "I",
+      "control_name": "Aggregated Disclosure",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-200",
+      "control_name": "Exposure of Sensitive Information",
+      "tier": "Foundational",
+      "scope": "Build"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-201",
+      "control_name": "Insertion of Sensitive Information Into Sent Data",
+      "tier": "Foundational",
+      "scope": "Build"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-285",
+      "control_name": "Improper Authorisation",
+      "tier": "Foundational",
+      "scope": "Build"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "DPT",
+      "control_name": "Data Protection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Verify only need-to-know data is placed in context for a task"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "ACT",
+      "control_name": "Access Control",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Confirm each item added to context is authorised for the caller"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "AST",
+      "control_name": "Agent-Specific",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Attempt to extract the full assembled context via the model"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L2",
+      "control_name": "Data Operations",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L1",
+      "control_name": "Foundation Models",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L3",
+      "control_name": "Agent Frameworks",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "A",
+      "control_name": "Data & Privacy domain",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "B005",
+      "control_name": "Implement real-time input filtering",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "B006",
+      "control_name": "Prevent unauthorized AI actions",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-5",
+      "control_name": "Over-Privileged NHI",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Scope context-assembly identity to the caller's authorised data"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PW.1.1-PS",
+      "control_name": "Context-minimisation requirements",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Require need-to-know context assembly"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PW.2.1-PS",
+      "control_name": "Design review of context assembly",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Authorise each context item for the caller"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PW.5.1-PS",
+      "control_name": "Secure assembly in code",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Cap and scope context construction"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "AC-6",
+      "control_name": "Least Privilege — context data scoping",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Restrict context window content to minimum necessary for the task; enforce per-task context scope limits aligned with user authorisation"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "CM-7",
+      "control_name": "Least Functionality — context assembly restrictions",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Restrict context assembly to approved data sources; disable inclusion of unnecessary system data, full documents, or unbounded conversation history"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "SI-10",
+      "control_name": "Information Input Validation — context boundary enforcement",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Validate and enforce context window boundaries; truncate or summarise content exceeding defined limits; strip unnecessary metadata"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 9",
+      "control_name": "Protection and Prevention – context scope controls",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Implement data minimisation in context assembly; only include minimum necessary data; enforce per-task context scope limits"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 5–7",
+      "control_name": "ICT Risk Management – context minimisation governance",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Include context window data minimisation in ICT risk management; define maximum context scope per AI use case"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 10",
+      "control_name": "Detection – excessive context monitoring",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Monitor context window assembly for excessive data inclusion; alert on context exceeding defined scope limits"
+    }
+  ],
+  "tools": [
+    {
+      "name": "LlamaIndex",
+      "type": "open-source",
+      "url": "https://www.llamaindex.ai"
+    },
+    {
+      "name": "Guardrails AI",
+      "type": "open-source",
+      "url": "https://github.com/guardrails-ai/guardrails"
+    },
+    {
+      "name": "LLM Guard",
+      "type": "open-source",
+      "url": "https://github.com/protectai/llm-guard"
+    },
+    {
+      "name": "Garak",
+      "type": "open-source",
+      "url": "https://github.com/leondz/garak"
+    },
+    {
+      "name": "Open Policy Agent",
+      "type": "open-source",
+      "url": "https://www.openpolicyagent.org"
+    },
+    {
+      "name": "Microsoft Presidio",
+      "type": "open-source",
+      "url": "https://github.com/microsoft/presidio"
+    },
+    {
+      "name": "Nightfall DLP",
+      "type": "commercial",
+      "url": "https://www.nightfall.ai"
+    }
+  ],
+  "incidents": [
+    {
+      "name": "Chat & Ask AI app — 300 million messages from 25 million users exposed via misconfigured Firebase",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-00740.html",
+      "year": 2026,
+      "incident_id": "INC-00740"
+    },
+    {
+      "name": "Italy Garante orders ChatGPT GDPR enforcement — consent and data minimization failures",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-02774.html",
+      "year": 2025,
+      "incident_id": "INC-02774"
+    },
+    {
+      "name": "Perplexity Comet agentic browser — unauthorized Amazon customer account access",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-03020.html",
+      "year": 2025,
+      "incident_id": "INC-03020"
+    }
+  ],
+  "crossrefs": {
+    "llm_top10": [
+      "LLM07",
+      "LLM02",
+      "LLM08",
+      "LLM01"
+    ],
+    "agentic_top10": [
+      "ASI01",
+      "ASI06",
+      "ASI02"
+    ]
+  },
+  "changelog": [
+    {
+      "date": "2026-03-27",
+      "version": "1.0.0",
+      "change": "Initial entry — generated from AIShield v1.5.1 mapping files",
+      "author": "mohakrudrakshh"
+    }
+  ]
+}

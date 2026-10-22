@@ -1,0 +1,736 @@
+{
+  "id": "DSGAI12",
+  "name": "Unsafe Natural Language Data Gateways",
+  "source_list": "DSGAI-2026",
+  "version": "2026-Q1",
+  "severity": "Critical",
+  "aivss_score": null,
+  "audience": [
+    "red-teamer",
+    "security-engineer",
+    "ciso",
+    "compliance",
+    "ml-engineer",
+    "ot-engineer",
+    "auditor",
+    "developer",
+    "data-engineer"
+  ],
+  "mappings": [
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0051",
+      "control_name": "LLM Prompt Injection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "NL gateway interface exploited through crafted natural language to generate destructive or exfiltrating queries"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0057",
+      "control_name": "LLM Data Leakage",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Database accessed through LLM-generated queries — adversary extracts sensitive records without direct database access"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0035",
+      "control_name": "Exfiltrate via ML Inference API",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "LLM inference API used to generate queries that extract data from connected databases"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MP-2.3",
+      "control_name": "Risk categorisation",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "LLM-to-database interface risks mapped — privilege level, query scope, and data exposure per interface"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MS-2.5",
+      "control_name": "Testing — adversarial",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "SQL injection, privilege escalation, and bulk extraction testing on all LLM gateway interfaces"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MG-2.2",
+      "control_name": "Risk response",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "Incident response for LLM gateway misuse — query log forensics, data exposure scoping"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "GV-1.7",
+      "control_name": "Policies for trustworthy AI",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "Policy requiring least-privilege execution and read-only defaults for all LLM-to-database interfaces"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 9",
+      "control_name": "Risk management",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All LLM-to-database interfaces mapped in Art. 9 risk management"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 14",
+      "control_name": "Human oversight",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "LLM-generated destructive database queries executing autonomously are an Art. 14 human oversight failure"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 15",
+      "control_name": "Accuracy, robustness, cybersecurity",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Least-privilege execution, query allowlisting, and SQL injection prevention are Art. 15 requirements"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 17",
+      "control_name": "Quality management",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Security testing procedures and query log retention documented in quality management"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.26",
+      "control_name": "Application security requirements",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "Security requirements for LLM-to-SQL interfaces — read-only by default, parameterisation mandatory"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.3",
+      "control_name": "Information access restriction",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "LLM-generated queries execute under least-privilege credentials matching the requesting user's access"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.28",
+      "control_name": "Secure coding",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "Parameterised queries, allowlisted operations, and row-level policy enforcement in LLM gateway code"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.29",
+      "control_name": "Security testing",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "SQL injection and privilege escalation testing on all LLM-to-database interfaces"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.6.2.3",
+      "control_name": "Lifecycle — operational",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.6.2.6",
+      "control_name": "Lifecycle — testing",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.7.2",
+      "control_name": "Data — access control",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.9.1",
+      "control_name": "Use of AI systems",
+      "tier": "Foundational",
+      "scope": "Build",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 16",
+      "control_name": "16.2 — Establish secure configuration for software",
+      "tier": "Foundational",
+      "scope": "Build"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 6",
+      "control_name": "6.3 — Require password manager for service accounts",
+      "tier": "Foundational",
+      "scope": "Build"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 18",
+      "control_name": "18.1 — Establish penetration testing programme",
+      "tier": "Foundational",
+      "scope": "Build"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V5.1.1",
+      "control_name": "Allowlist input validation",
+      "tier": "Foundational",
+      "scope": "Build"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V5",
+      "control_name": "Validation",
+      "tier": "Foundational",
+      "scope": "Build"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V4.1.1",
+      "control_name": "Access control on every request",
+      "tier": "Foundational",
+      "scope": "Build"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V13.1.1",
+      "control_name": "API protection against enumeration",
+      "tier": "Foundational",
+      "scope": "Build"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 2.2",
+      "control_name": "Least privilege",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "NL gateway executes under requesting operator's permissions — never shared high-privilege OT service account"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 2.1",
+      "control_name": "Use control enforcement",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "NL gateway query allowlisting — only pre-approved query patterns permitted to OT data systems"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 3.3",
+      "control_name": "Software and information integrity",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "NL gateway input validation — injection addressed as a known vulnerability class in Zone 3"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 6.1",
+      "control_name": "Timely response to events",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "NL gateway misuse treated as Critical security event — query log forensics, data exposure scope"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§5.3",
+      "control_name": "Common ICS vulnerabilities",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Injectable query interfaces to OT data"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§6.2",
+      "control_name": "Risk assessment",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Assess generated-query reach"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§7.2",
+      "control_name": "Security controls",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Parameterise and scope generated queries"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "PR.AA-05",
+      "control_name": "Identity Management, Authentication & Access Control",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "LLM-generated queries execute under requesting user's permissions — not shared high-privilege service account"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "PR.PS-04",
+      "control_name": "Platform Security",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Secure development — query allowlisting, parameterised execution as platform security requirements"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "DE.CM-01",
+      "control_name": "Continuous Monitoring",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All LLM-generated queries to data systems logged and monitored — bulk extraction patterns detected"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "ID.RA-01",
+      "control_name": "Risk Assessment",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "NL gateway interfaces documented in risk assessment — privilege level, query scope, data categories accessible"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC6.1",
+      "control_name": "Logical access",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "PI1.1",
+      "control_name": "Processing integrity policy",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "PI1.3",
+      "control_name": "Outputs complete and accurate",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC7.2",
+      "control_name": "Anomaly detection",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC5.2",
+      "control_name": "Control activities",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 7.2.1",
+      "control_name": "Restrict access",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "LLM-generated queries execute under requesting user's CDE permissions — never shared high-privilege account"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 6.2.4",
+      "control_name": "Bespoke software",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "LLM-to-SQL interfaces address injection as a known vulnerability class — query allowlisting, parameterised execution"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 6.4.1",
+      "control_name": "Public-facing application protection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "LLM-powered query interfaces in CDE scope protected — WAF or equivalent, input validation"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 10.2.1",
+      "control_name": "Logging",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All LLM-generated queries to CDE systems logged — full audit trail with user identity"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "AI System Integrity (ASI)",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All NL gateway inputs validated and query scope enforced — generated queries reviewed before execution as AI system integrity requirement"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "MON",
+      "control_name": "Monitoring and Detection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All NL gateway queries logged — anomaly detection for unexpected data volumes, query patterns, or access scope"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "Data and Model Security (DMS)",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Data access through NL gateways governed by the same classification and authorisation controls as direct API access"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L1",
+      "control_name": "General ICT — Access Control",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "NL gateway operates under database least-privilege credentials — cannot execute DDL, cannot access tables outside defined scope"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "D-SR",
+      "control_name": "Design / Security Requirements",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Require parameterisation, allowlisting, and scope limits"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "I-SB",
+      "control_name": "Implementation / Secure Build",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Execute under the user's permissions; never a privileged service account"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "V-ST",
+      "control_name": "Verification / Security Testing",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Probe for destructive/over-broad generated queries"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "T",
+      "control_name": "Query Tampering",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "E",
+      "control_name": "Execution Privilege Elevation",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "I",
+      "control_name": "Query-Driven Disclosure",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-89",
+      "control_name": "SQL Injection",
+      "tier": "Foundational",
+      "scope": "Build"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-20",
+      "control_name": "Improper Input Validation",
+      "tier": "Foundational",
+      "scope": "Build"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-284",
+      "control_name": "Improper Access Control",
+      "tier": "Foundational",
+      "scope": "Build"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "IHT",
+      "control_name": "Input Handling",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Craft prompts that induce destructive or over-broad generated queries"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "OHT",
+      "control_name": "Output Handling",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Verify generated queries are parameterised, allowlisted, and scope-limited before execution"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "ACT",
+      "control_name": "Access Control",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Confirm the gateway executes under the user's permissions, not a privileged service account"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L3",
+      "control_name": "Agent Frameworks",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L2",
+      "control_name": "Data Operations",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L6",
+      "control_name": "Security & Compliance",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "B005",
+      "control_name": "Implement real-time input filtering",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "B006",
+      "control_name": "Prevent unauthorized AI actions",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "B009",
+      "control_name": "Limit output over-exposure",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "A",
+      "control_name": "Data & Privacy domain",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-5",
+      "control_name": "Over-Privileged NHI",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Execute under the user's scoped permissions, not a privileged account"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-4",
+      "control_name": "Insecure Authentication",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Strong mutual auth to the data source"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PW.5.1-PS",
+      "control_name": "Parameterised query handling",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Parameterise and scope generated queries"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PW.7.2-PS",
+      "control_name": "Review/test of gateway code",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Injection tests against the gateway"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PS.1.1-PS",
+      "control_name": "Execution-time access control",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Run under the user's permissions, not a service account"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "SI-10",
+      "control_name": "Information Input Validation — NL-to-query validation",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Validate all natural language inputs before translation to executable queries; block injection patterns, destructive operations, and schema-probing queries"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "AC-3",
+      "control_name": "Access Enforcement — gateway operation restrictions",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Enforce allow-listed operations for NL data gateways; gateway queries execute with the requesting user's permissions, not system-level; restrict to read-only or approved operations"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "AU-2",
+      "control_name": "Event Logging — gateway transaction logging",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Log all NL gateway transactions — input, translated query, results — with user identity and authorisation context"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "SC-7",
+      "control_name": "Boundary Protection — gateway data flow control",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Enforce boundary controls on NL gateway data flows; limit result sets; prevent sensitive data from leaving authorised scope"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 9",
+      "control_name": "Protection and Prevention – gateway input validation",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Implement validation and filtering on all NL-to-query translation; enforce allow-listed operations; restrict gateway queries to user privilege scope"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 10",
+      "control_name": "Detection – gateway anomaly monitoring",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Monitor NL gateway operations for anomalous patterns — excessive data retrieval, schema probing, injection attempts; alert and block"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 24–27",
+      "control_name": "Resilience Testing – gateway security testing",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Include NL gateway injection testing in resilience testing; test for SQL injection, API abuse, and privilege escalation through natural language"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 17–23",
+      "control_name": "ICT Incident Management – gateway breach reporting",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Classify gateway data exfiltration as ICT-related incidents; report per DORA criteria"
+    }
+  ],
+  "tools": [
+    {
+      "name": "Semgrep",
+      "type": "open-source",
+      "url": "https://semgrep.dev"
+    },
+    {
+      "name": "OWASP ZAP",
+      "type": "open-source",
+      "url": "https://www.zaproxy.org"
+    },
+    {
+      "name": "Immuta",
+      "type": "commercial",
+      "url": "https://www.immuta.com"
+    },
+    {
+      "name": "Rebuff",
+      "type": "open-source",
+      "url": "https://github.com/protectai/rebuff"
+    },
+    {
+      "name": "Garak",
+      "type": "open-source",
+      "url": "https://github.com/leondz/garak"
+    },
+    {
+      "name": "SQLFluff",
+      "type": "open-source",
+      "url": "https://github.com/sqlfluff/sqlfluff"
+    },
+    {
+      "name": "LLM Guard",
+      "type": "open-source",
+      "url": "https://github.com/protectai/llm-guard"
+    },
+    {
+      "name": "Open Policy Agent",
+      "type": "open-source",
+      "url": "https://www.openpolicyagent.org"
+    },
+    {
+      "name": "Nightfall DLP",
+      "type": "commercial",
+      "url": "https://www.nightfall.ai"
+    },
+    {
+      "name": "Splunk",
+      "type": "commercial",
+      "url": "https://www.splunk.com"
+    }
+  ],
+  "incidents": [
+    {
+      "name": "Clearview AI biometric bias — $50M class action settlement",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-02454.html",
+      "year": 2025,
+      "incident_id": "INC-02454"
+    }
+  ],
+  "crossrefs": {
+    "llm_top10": [
+      "LLM05",
+      "LLM01",
+      "LLM06"
+    ],
+    "agentic_top10": [
+      "ASI02",
+      "ASI05",
+      "ASI01"
+    ]
+  },
+  "changelog": [
+    {
+      "date": "2026-03-27",
+      "version": "1.0.0",
+      "change": "Initial entry — generated from AIShield v1.5.1 mapping files",
+      "author": "mohakrudrakshh"
+    }
+  ]
+}

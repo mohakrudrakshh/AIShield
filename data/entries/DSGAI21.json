@@ -1,0 +1,743 @@
+{
+  "id": "DSGAI21",
+  "name": "Disinformation via Data Poisoning",
+  "source_list": "DSGAI-2026",
+  "version": "2026-Q1",
+  "severity": "High",
+  "aivss_score": null,
+  "audience": [
+    "red-teamer",
+    "security-engineer",
+    "ciso",
+    "compliance",
+    "ml-engineer",
+    "ot-engineer",
+    "auditor",
+    "developer",
+    "data-engineer"
+  ],
+  "mappings": [
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0060",
+      "control_name": "Publish Hallucinated Entities",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Adversary leverages AI-generated hallucinated content published in public repositories, documentation sites, or knowledge bases indexed by RAG systems"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0020",
+      "control_name": "Poison Training Data",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Adversary introduces false content into RAG corpus through ingestion path — no public publication required"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0031",
+      "control_name": "Erode AI Model Integrity",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "False content degrades model integrity by corrupting retrieval-augmented generation outputs"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0070",
+      "control_name": "RAG Poisoning",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Injecting disinformation directly into RAG knowledge bases to corrupt downstream outputs"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0066",
+      "control_name": "Retrieval Content Crafting",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "False content crafted to appear authoritative and rank highly in semantic similarity searches"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "GV-1.7",
+      "control_name": "Policies for trustworthy AI",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Policy on information integrity for AI outputs — source trust verification, cross-verification requirements"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MS-2.5",
+      "control_name": "Testing — adversarial",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Adversarial testing of RAG pipeline integrity — source poisoning and retrieval manipulation scenarios"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MS-3.3",
+      "control_name": "Data quality",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Data quality controls on all RAG ingestion — provenance, source trust scoring, anomaly detection"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MG-2.2",
+      "control_name": "Risk response",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Response for detected RAG poisoning — source quarantine, index rebuild, output correction"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 10",
+      "control_name": "Data and data governance",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "RAG corpus integrity controls and source verification are Art. 10 requirements"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 15",
+      "control_name": "Accuracy, robustness, cybersecurity",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Source trust scoring and ingestion validation are Art. 15 robustness requirements"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Systemic risk GPAI providers must assess and mitigate risks including disinformation",
+      "control_name": "Art. 55(1)(a) — Systemic risk GPAI",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Disinformation risk assessment and RAG integrity controls are binding Art. 55 obligations"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 50",
+      "control_name": "Transparency",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Disinformation risk amplified when users cannot distinguish AI-generated content — Art. 50 applies"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.5.7",
+      "control_name": "Threat intelligence",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Active intelligence on disinformation campaigns and RAG poisoning techniques targeting your sector"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.8",
+      "control_name": "Management of technical vulnerabilities",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Vulnerability management extended to cover data integrity vulnerabilities in RAG pipelines"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.27",
+      "control_name": "Secure system architecture",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "RAG pipeline designed with source trust verification and integrity controls"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.29",
+      "control_name": "Security testing",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Integrity testing of RAG corpora — anomaly detection, source validation, content verification"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.7.2",
+      "control_name": "Data — provenance",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.7.3",
+      "control_name": "Data — quality",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.5.2",
+      "control_name": "Impact assessment",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.8.1",
+      "control_name": "Transparency",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 7",
+      "control_name": "7.1 — Vulnerability management",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 16",
+      "control_name": "16.11 — Use up-to-date components",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 18",
+      "control_name": "18.1 — Penetration testing",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V5",
+      "control_name": "Validation",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V11.1.4",
+      "control_name": "Enforce business logic limits",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 3.3",
+      "control_name": "Software and information integrity",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "OT RAG corpus integrity controls — source allowlisting, hash verification, ingestion gates"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 3.7",
+      "control_name": "Software and information integrity monitoring",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Continuous OT RAG corpus monitoring — unauthorised modifications detected before reaching operators"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 6.1",
+      "control_name": "Timely response to events",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "OT RAG poisoning treated as Critical security event — source quarantine, index rebuild, process control assessment"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 7.6",
+      "control_name": "Denial of service protection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Poisoned advisory output blast radius contained — process control fallback if advisory system compromised"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§5.5",
+      "control_name": "Supply chain / connectivity",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Tainted external OT data sources"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§6.3",
+      "control_name": "Supply chain risk",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Vet OT data-source provenance"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§8.4",
+      "control_name": "Supply chain program",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Provenance across the OT data supply chain"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "GV.SC-01",
+      "control_name": "Supply Chain Risk Management",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "RAG data source providers treated as suppliers — content integrity requirements in contracts"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "DE.CM-09",
+      "control_name": "Continuous Monitoring",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "RAG corpus integrity monitored — anomalous content changes, unusual ingestion patterns detected"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "RS.AN-03",
+      "control_name": "Incident Analysis",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "RAG poisoning incidents analysed — affected content identified, operational decisions influenced reviewed"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "PR.DS-01",
+      "control_name": "Data Security",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "RAG corpus content integrity protected — hash-based verification, source trust tiering"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "PI1.2",
+      "control_name": "System inputs complete and accurate",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "PI1.3",
+      "control_name": "Outputs complete and accurate",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC9.1",
+      "control_name": "Vendor risk",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC7.2",
+      "control_name": "Anomaly detection",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 6.5.6",
+      "control_name": "Secure system changes",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "RAG corpus updates tested for unexpected content — integrity verification before production indexing"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 12.8",
+      "control_name": "TPSP programme",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "RAG data source providers as TPSPs — content quality and integrity requirements in agreements"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 10.6.1",
+      "control_name": "Audit log review",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "RAG corpus monitoring — anomalous content detected and reviewed as part of Req 10 log analysis"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 11.3.1",
+      "control_name": "Penetration testing",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Adversarial RAG integrity testing for payment advisory systems — false content injection attempts documented"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "Data and Model Security (DMS)",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Provenance verification for all fine-tuning corpora — source credibility assessed, integrity verified before ingestion"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "AI System Integrity (ASI)",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "AI system integrity testing includes factual accuracy validation — model outputs tested against ground truth before deployment"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "Governance and Risk (GOV)",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Disinformation risk documented in AI risk register — sector-specific severity assessed for healthcare, finance, critical infrastructure"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L3",
+      "control_name": "Sector-specific",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "For NIS2 essential entities and EU AI Act Annex III deployments — disinformation risk treated as a significant incident category"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "D-TA",
+      "control_name": "Design / Threat Assessment",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Model disinformation injection into training/RAG sources"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "I-SB",
+      "control_name": "Implementation / Secure Build",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Vet, sign, and provenance-track training/RAG sources"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "V-ST",
+      "control_name": "Verification / Security Testing",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Probe for systematically false outputs on poisoned topics"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "O-IM",
+      "control_name": "Operations / Incident Management",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Detect anomalous content injected over time"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "T",
+      "control_name": "Source Tampering",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "R",
+      "control_name": "Provenance Repudiation",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-345",
+      "control_name": "Insufficient Verification of Data Authenticity",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-20",
+      "control_name": "Improper Input Validation",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "SCT",
+      "control_name": "Supply Chain",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Verify training/RAG sources are vetted, signed, and provenance-tracked"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "MBT",
+      "control_name": "Model Behaviour",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Probe for systematically false outputs on poisoned topics"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "DPT",
+      "control_name": "Data Protection",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Detect anomalous content injected into the RAG corpus over time"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L2",
+      "control_name": "Data Operations",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L1",
+      "control_name": "Foundation Models",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L5",
+      "control_name": "Evaluation & Observability",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "C",
+      "control_name": "Safety domain",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "F",
+      "control_name": "Society domain",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "B002",
+      "control_name": "Detect adversarial input",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "B005",
+      "control_name": "Implement real-time input filtering",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-3",
+      "control_name": "Vulnerable Third-Party NHI",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Vet and scope third-party data-source identities"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-5",
+      "control_name": "Over-Privileged NHI",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Read-only by default; scoped, signed ingestion"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-7",
+      "control_name": "Long-Lived Credentials",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Ephemeral, job-scoped write credentials"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PW.4.1-PS",
+      "control_name": "Vet & sign data sources",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Provenance-track training/RAG sources"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PS.2.1-PS",
+      "control_name": "Integrity verification",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Detect injected/tampered content"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "RV.3.1-PS",
+      "control_name": "Root-cause of disinformation incidents",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Analyse and remediate poisoning systemically"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "SI-3",
+      "control_name": "Malicious Code Protection — adversarial content detection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Extend malicious code protection to detect adversarial content injected into RAG knowledge bases and training data; identify poisoned or manipulated content"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "SI-7",
+      "control_name": "Software, Firmware, and Information Integrity — knowledge source integrity",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Verify integrity and authenticity of RAG knowledge sources; detect unauthorised modifications to knowledge bases and training datasets"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "AU-2",
+      "control_name": "Event Logging — content provenance tracking",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Log provenance of all content entering knowledge bases and training pipelines; enable tracing of content from source through processing to output"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "SR-3",
+      "control_name": "Supply Chain Controls — source credibility verification",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Verify credibility and integrity of all knowledge sources before ingestion; implement source validation and fact-checking controls"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 9",
+      "control_name": "Protection and Prevention – knowledge base integrity",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Implement integrity controls for RAG knowledge bases and training data; verify source authenticity; prevent unauthorised content injection"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 24–27",
+      "control_name": "Resilience Testing – disinformation testing",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Include disinformation and knowledge base poisoning scenarios in resilience testing; test detection capabilities and content verification"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 13",
+      "control_name": "Learning and Evolving – integrity improvement",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Apply lessons learned from integrity attacks; update knowledge base validation and content verification controls"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 45",
+      "control_name": "Information Sharing – disinformation threat intelligence",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Participate in information sharing for AI disinformation threats; share indicators of knowledge base poisoning and content manipulation"
+    }
+  ],
+  "tools": [
+    {
+      "name": "Great Expectations",
+      "type": "open-source",
+      "url": "https://greatexpectations.io"
+    },
+    {
+      "name": "Deepchecks",
+      "type": "open-source",
+      "url": "https://deepchecks.com"
+    },
+    {
+      "name": "TruLens",
+      "type": "open-source",
+      "url": "https://github.com/truera/trulens"
+    },
+    {
+      "name": "CleanLab",
+      "type": "open-source",
+      "url": "https://github.com/cleanlab/cleanlab"
+    },
+    {
+      "name": "FactScore",
+      "type": "open-source",
+      "url": "https://github.com/shmsw25/FActScoring"
+    },
+    {
+      "name": "Cleanlab",
+      "type": "open-source",
+      "url": "https://github.com/cleanlab/cleanlab"
+    },
+    {
+      "name": "RAGAS",
+      "type": "open-source",
+      "url": "https://github.com/explodinggradients/ragas"
+    },
+    {
+      "name": "LLM Guard",
+      "type": "open-source",
+      "url": "https://github.com/protectai/llm-guard"
+    },
+    {
+      "name": "Splunk",
+      "type": "commercial",
+      "url": "https://www.splunk.com"
+    },
+    {
+      "name": "Sigstore",
+      "type": "open-source",
+      "url": "https://www.sigstore.dev"
+    },
+    {
+      "name": "C2PA",
+      "type": "open-source",
+      "url": "https://c2pa.org"
+    }
+  ],
+  "incidents": [
+    {
+      "name": "Clearview AI biometric bias — $50M class action settlement",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-02454.html",
+      "year": 2025,
+      "incident_id": "INC-02454"
+    },
+    {
+      "name": "Italy Garante orders ChatGPT GDPR enforcement — consent and data minimization failures",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-02774.html",
+      "year": 2025,
+      "incident_id": "INC-02774"
+    }
+  ],
+  "crossrefs": {
+    "llm_top10": [
+      "LLM04",
+      "LLM09"
+    ],
+    "agentic_top10": [
+      "ASI06",
+      "ASI04",
+      "ASI09"
+    ]
+  },
+  "changelog": [
+    {
+      "date": "2026-03-27",
+      "version": "1.0.0",
+      "change": "Initial entry — generated from AIShield v1.5.1 mapping files",
+      "author": "mohakrudrakshh"
+    }
+  ]
+}

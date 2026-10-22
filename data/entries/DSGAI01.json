@@ -1,0 +1,841 @@
+{
+  "id": "DSGAI01",
+  "name": "Sensitive Data Leakage",
+  "source_list": "DSGAI-2026",
+  "version": "2026-Q1",
+  "severity": "Critical",
+  "aivss_score": null,
+  "audience": [
+    "red-teamer",
+    "security-engineer",
+    "ciso",
+    "compliance",
+    "ml-engineer",
+    "ot-engineer",
+    "auditor",
+    "developer",
+    "data-engineer"
+  ],
+  "mappings": [
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0035",
+      "control_name": "Exfiltrate via ML Inference API",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Adversary queries LLM to extract sensitive data from training corpus, RAG store, or prompt cache through crafted inference queries"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0024.000",
+      "control_name": "Membership Inference",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Adversary determines whether specific sensitive records were used in training — confirms presence of target data"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0025",
+      "control_name": "Exfiltrate via Cyber Means",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Sensitive content in LLM outputs, logs, or observability pipelines captured and transmitted to adversary"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "GV-1.6",
+      "control_name": "Policies for data privacy",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Organisational policy on data classification, handling, and disclosure controls for GenAI data assets"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MP-2.3",
+      "control_name": "Risk categorisation",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Sensitive data leakage categorised and rated in AI system risk register — specific to each deployment"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MS-2.6",
+      "control_name": "Testing — data leakage",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Evaluation programme includes data leakage testing — training data, RAG over-retrieval, output redaction"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MG-2.4",
+      "control_name": "Risk response — data",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Defined incident response for sensitive data disclosure — notification, containment, regulatory reporting"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 10",
+      "control_name": "Data and data governance",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Data governance controls preventing sensitive data ingestion and memorisation are Art. 10 requirements"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 15",
+      "control_name": "Accuracy, robustness, cybersecurity",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Output scanning, DLP, and access controls on RAG retrieval are Art. 15 technical requirements"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 53(1)(a)",
+      "control_name": "GPAI documentation",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Data governance for training data — sources, quality, privacy measures — is a GPAI documentation obligation"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.11",
+      "control_name": "Data masking",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Masking or redaction of sensitive data in LLM outputs, RAG results, and prompts"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.12",
+      "control_name": "Data leakage prevention",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "DLP controls on all GenAI output channels — model API, chat interfaces, logs"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.5.12",
+      "control_name": "Classification of information",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All data in GenAI scope classified — training data, RAG corpora, outputs, embeddings"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.3",
+      "control_name": "Information access restriction",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Access controls on RAG data sources limiting retrieval to authorised user scope"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.5.13",
+      "control_name": "Labelling of information",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Classification labels propagated to derived assets — embeddings, caches, summaries"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.7.2",
+      "control_name": "Data for AI — acquisition",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.7.3",
+      "control_name": "Data for AI — preparation",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.6.2.3",
+      "control_name": "Lifecycle — operational",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.5.2",
+      "control_name": "Impact assessment",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 3",
+      "control_name": "3.1 — Establish and maintain data management process",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 3",
+      "control_name": "3.13 — Deploy DLP solutions",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 8",
+      "control_name": "8.2 — Collect audit logs",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 16",
+      "control_name": "16.12 — Implement code-level security checks",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V8.1.1",
+      "control_name": "Sensitive data not transmitted in URL parameters",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V8.3.4",
+      "control_name": "Sensitive data identified and classified",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V4.1.3",
+      "control_name": "Deny by default access control",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V5",
+      "control_name": "Validation",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V6.1.1",
+      "control_name": "Sensitive data not stored in cleartext",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 4.1",
+      "control_name": "Data confidentiality",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All OT data flowing through GenAI systems encrypted — historian exports, embedding stores, prompt caches"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 4.4",
+      "control_name": "Use of physical diagnostic and test interfaces",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "GenAI outputs containing sensitive OT identifiers (tag names, IPs, device types) masked before leaving DMZ"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 1.2",
+      "control_name": "Human user authentication",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Access to GenAI systems in OT scope authenticated — each user with unique, traceable identity"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 6.1",
+      "control_name": "Timely response to events",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Sensitive OT data disclosure treated as security event — agent suspended, disclosure scope assessed"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§5.4",
+      "control_name": "Data security & remote access",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "OT data at rest/in transit to GenAI must be protected"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§6.2",
+      "control_name": "Risk assessment",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Assess disclosure risk for each OT data class fed to GenAI"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§7.3",
+      "control_name": "Data flow controls",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Read-only, scoped OT data access for inference/RAG"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "PR.DS-01",
+      "control_name": "Data Security",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Sensitive data at rest protected — training data, embeddings, RAG stores, prompt caches encrypted"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "PR.DS-02",
+      "control_name": "Data Security",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Sensitive data in transit protected — all GenAI API calls and RAG retrieval paths encrypted"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "DE.CM-01",
+      "control_name": "Continuous Monitoring",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Networks and assets monitored — DLP on all GenAI output channels"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "GV.RM-06",
+      "control_name": "Risk Management Strategy",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Risk tolerance established — acceptable sensitive data disclosure risk defined per GenAI use case"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "C1.1",
+      "control_name": "Confidentiality policy",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "C2.1",
+      "control_name": "Confidential information protection",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC6.1",
+      "control_name": "Logical access",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "P5.1",
+      "control_name": "Personal information use",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC7.2",
+      "control_name": "Anomaly detection",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 3.4.1",
+      "control_name": "PAN rendering unreadable",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "PANs in GenAI outputs masked — only first six/last four digits in any response"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 3.5.1",
+      "control_name": "Protect stored account data",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All CHD in GenAI scope encrypted — training data, RAG stores, embeddings, prompt caches"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 4.2.1",
+      "control_name": "Encryption in transit",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All GenAI data flows carrying CHD encrypted — TLS 1.2 minimum"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 7.2.1",
+      "control_name": "Restrict access",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "RAG retrieval access controls — users retrieve only CHD they are authorised to access"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "Data and Model Security (DMS)",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All data in GenAI scope classified and governed — training corpora, RAG sources, embeddings, and outputs subject to DMS practices"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "MON",
+      "control_name": "Monitoring and Detection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "DLP on all GenAI output channels — AI-specific monitoring covering sensitive data patterns before delivery to consumers"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "Governance and Risk (GOV)",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "GDPR and EU AI Act Article 10 data governance obligations addressed for all GenAI data assets"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L1",
+      "control_name": "General ICT — Data Protection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Training data, embeddings, and RAG stores encrypted at rest and in transit; least-privilege access enforced"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "D-SR",
+      "control_name": "Design / Security Requirements",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Define what data may enter prompts/RAG and how outputs must be filtered"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "I-SB",
+      "control_name": "Implementation / Secure Build",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Scan and redact PII/secrets before responses leave the system"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "V-ST",
+      "control_name": "Verification / Security Testing",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Probe for memorisation and RAG over-retrieval under low-privilege identities"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "O-OM",
+      "control_name": "Operations / Operational Management",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Encrypt corpora; enforce least-privilege on data stores feeding the model"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "I",
+      "control_name": "Data Disclosure",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "R",
+      "control_name": "Access Repudiation",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-200",
+      "control_name": "Exposure of Sensitive Information to Unauthorised Actor",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-359",
+      "control_name": "Exposure of Private Personal Information",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-312",
+      "control_name": "Cleartext Storage of Sensitive Information",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "DPT",
+      "control_name": "Data Protection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Probe for verbatim training data and pull RAG documents the requesting principal is not authorised to see"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "OHT",
+      "control_name": "Output Handling",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Verify PII/secret patterns are detected and masked in outputs before delivery, including partial and obfuscated forms"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "ACT",
+      "control_name": "Access Control",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Confirm retrieval honours the caller's authorisation, not the service account's broad access"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L2",
+      "control_name": "Data Operations",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L1",
+      "control_name": "Foundation Models",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L5",
+      "control_name": "Evaluation & Observability",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "A",
+      "control_name": "Data & Privacy domain (all)",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "B009",
+      "control_name": "Limit output over-exposure",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "B006",
+      "control_name": "Prevent unauthorized AI actions",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "E",
+      "control_name": "Audit trails and logging",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-5",
+      "control_name": "Over-Privileged NHI",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Least-privilege, per-tenant retrieval identities"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-2",
+      "control_name": "Secret Leakage",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Keep secrets out of context; scan outputs for credential patterns"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PS.1.1-PS",
+      "control_name": "Protect data and artefacts from unauthorised access",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Deny-by-default access to corpora/embeddings; encrypt at rest"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PW.5.1-PS",
+      "control_name": "Secure handling of data in code paths",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Output DLP/redaction before responses leave the system"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "RV.1.1-PS",
+      "control_name": "Audit-driven anomaly detection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Detect over-retrieval and bulk-access anomalies"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "SC-28",
+      "control_name": "Protection of Information at Rest — AI data encryption",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Encrypt all AI data at rest — training data, model weights, inference logs, embedding stores — using FIPS 140-validated modules"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "AC-3",
+      "control_name": "Access Enforcement — AI data access",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Enforce role-based access control on all AI data stores; restrict access based on clearance, need-to-know, and data sensitivity"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "SI-4",
+      "control_name": "System Monitoring — leakage indicator detection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Monitor model outputs and data access patterns for leakage indicators — PII, credentials, classification markings in outputs; alert on detection"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "AU-2",
+      "control_name": "Event Logging — data access and output logging",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Log all AI data access and model outputs with sufficient detail to detect data leakage; include output content metadata"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 9",
+      "control_name": "Protection and Prevention – data leakage controls",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Implement DLP, output monitoring, access controls, and encryption for all financial AI data to prevent sensitive data from surfacing in model outputs"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 10",
+      "control_name": "Detection – leakage indicator monitoring",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Deploy detection for PII, credentials, and financial data patterns in model outputs; alert and block on detection"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 17–23",
+      "control_name": "ICT Incident Management – data breach reporting",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Classify AI data leakage events as ICT-related incidents; report to competent authorities per DORA incident classification criteria"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 13",
+      "control_name": "Learning and Evolving – leakage post-mortem",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Conduct post-incident analysis for data leakage events; identify root cause and update controls"
+    }
+  ],
+  "tools": [
+    {
+      "name": "Microsoft Presidio",
+      "type": "open-source",
+      "url": "https://github.com/microsoft/presidio"
+    },
+    {
+      "name": "Nightfall AI",
+      "type": "commercial",
+      "url": "https://nightfall.ai"
+    },
+    {
+      "name": "Private AI",
+      "type": "commercial",
+      "url": "https://private-ai.com"
+    },
+    {
+      "name": "Presidio",
+      "type": "open-source",
+      "url": "https://github.com/microsoft/presidio"
+    },
+    {
+      "name": "LLM Guard",
+      "type": "open-source",
+      "url": "https://github.com/protectai/llm-guard"
+    },
+    {
+      "name": "Garak",
+      "type": "open-source",
+      "url": "https://github.com/leondz/garak"
+    },
+    {
+      "name": "Nightfall DLP",
+      "type": "commercial",
+      "url": "https://www.nightfall.ai"
+    },
+    {
+      "name": "AWS Macie / Azure Purview",
+      "type": "commercial",
+      "url": "https://aws.amazon.com/macie/"
+    }
+  ],
+  "incidents": [
+    {
+      "name": "Chat & Ask AI app — 300 million messages from 25 million users exposed via misconfigured Firebase",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-00740.html",
+      "year": 2026,
+      "incident_id": "INC-00740"
+    },
+    {
+      "name": "Claude AI jailbreak — Mexican government breach, 150GB data theft across 10 agencies",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-00806.html",
+      "year": 2026,
+      "incident_id": "INC-00806"
+    },
+    {
+      "name": "EchoLeak — zero-click Microsoft Copilot data exfiltration via email prompt injection",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-00924.html",
+      "year": 2026,
+      "incident_id": "INC-00924"
+    },
+    {
+      "name": "GeminiJack — zero-click Gemini Enterprise data exfiltration via shared Google Docs",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-01064.html",
+      "year": 2026,
+      "incident_id": "INC-01064"
+    },
+    {
+      "name": "Meta Rogue AI Agent Sev-1 — autonomous agent posts incorrect advice, exposing proprietary data",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-01411.html",
+      "year": 2026,
+      "incident_id": "INC-01411"
+    },
+    {
+      "name": "Moltbook — vibe-coded social network exposes 1.5M API tokens and 35K emails",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-01465.html",
+      "year": 2026,
+      "incident_id": "INC-01465"
+    },
+    {
+      "name": "ForcedLeak — Salesforce Agentforce indirect prompt injection exfiltrates CRM data",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-02590.html",
+      "year": 2025,
+      "incident_id": "INC-02590"
+    },
+    {
+      "name": "GPT-4.1 jailbreak via tool poisoning",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-02646.html",
+      "year": 2025,
+      "incident_id": "INC-02646"
+    },
+    {
+      "name": "Microsoft Copilot Studio agents public by default — unauthorized data exfiltration",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-02899.html",
+      "year": 2025,
+      "incident_id": "INC-02899"
+    },
+    {
+      "name": "Salesloft Drift OAuth breach — Chinese actor UNC6395 accesses 700+ Salesforce CRM environments",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-03194.html",
+      "year": 2025,
+      "incident_id": "INC-03194"
+    },
+    {
+      "name": "ServiceNow BodySnatcher — hardcoded secret key enables full AI agent hijacking (CVE-2025-12420)",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-03208.html",
+      "year": 2025,
+      "incident_id": "INC-03208"
+    },
+    {
+      "name": "ShadowLeak — ChatGPT Deep Research zero-click data exfiltration from connected services",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-03210.html",
+      "year": 2025,
+      "incident_id": "INC-03210"
+    },
+    {
+      "name": "WhatsApp MCP tool poisoning — hidden instructions exfiltrate entire message history",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-03368.html",
+      "year": 2025,
+      "incident_id": "INC-03368"
+    },
+    {
+      "name": "Microsoft-Powered New York City Chatbot Advises Illegal Practices",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-04007.html",
+      "year": 2024,
+      "incident_id": "INC-04007"
+    },
+    {
+      "name": "OpenAI GPT-4 system prompt extraction toolkit — systematic prompt leakage",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-04067.html",
+      "year": 2024,
+      "incident_id": "INC-04067"
+    },
+    {
+      "name": "Slack AI indirect injection via channel content",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-04208.html",
+      "year": 2024,
+      "incident_id": "INC-04208"
+    },
+    {
+      "name": "Perez & Ribeiro — 'Ignore Previous Prompt': foundational direct injection study",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-05172.html",
+      "year": 2022,
+      "incident_id": "INC-05172"
+    },
+    {
+      "name": "ChatGPT plugin/cross-plugin data exfiltration via Markdown image injection (Embrace The Red)",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-08181.html",
+      "year": 2023,
+      "incident_id": "INC-08181"
+    }
+  ],
+  "crossrefs": {
+    "llm_top10": [
+      "LLM02",
+      "LLM07"
+    ],
+    "agentic_top10": [
+      "ASI03",
+      "ASI06"
+    ]
+  },
+  "changelog": [
+    {
+      "date": "2026-03-27",
+      "version": "1.0.0",
+      "change": "Initial entry — generated from AIShield v1.5.1 mapping files",
+      "author": "mohakrudrakshh"
+    }
+  ]
+}

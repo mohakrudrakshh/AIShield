@@ -1,0 +1,28 @@
+# Global owner — all files require review from @mohakrudrakshh unless overridden below
+* @mohakrudrakshh
+
+# Mapping folders — all three source lists
+/llm-top10/ @mohakrudrakshh
+/agentic-top10/ @mohakrudrakshh
+/dsgai-2026/ @mohakrudrakshh
+
+# Shared resources
+/shared/ @mohakrudrakshh
+
+# Data layer and machine-readable schema
+/data/ @mohakrudrakshh
+
+# Validation scripts and CI
+/scripts/ @mohakrudrakshh
+/.github/workflows/ @mohakrudrakshh
+
+# Governance and community files
+/GOVERNANCE.md @mohakrudrakshh
+/CONTRIBUTING.md @mohakrudrakshh
+/CODE_OF_CONDUCT.md @mohakrudrakshh
+/SECURITY.md @mohakrudrakshh
+/.github/ISSUE_TEMPLATE/ @mohakrudrakshh
+/.github/PULL_REQUEST_TEMPLATE.md @mohakrudrakshh
+
+# Internationalisation — translation owners added here as language leads are confirmed
+/i18n/ @mohakrudrakshh

@@ -1,0 +1,69 @@
+{
+  "id": "nist-sp-800-82",
+  "name": "NIST SP 800-82 Rev 3",
+  "short_name": "SP 800-82",
+  "version": "Rev 3",
+  "url": "https://csrc.nist.gov/pubs/sp/800/82/r3/final",
+  "license": "Public Domain",
+  "publisher": "NIST",
+  "category": "ot-ics",
+  "last_synced": "2026-06-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "§5.3",
+      "title": "OT vulnerabilities and threats",
+      "description": "Catalogues common ICS/OT vulnerabilities and integrity threats arising from IT/OT convergence."
+    },
+    {
+      "control_id": "§5.4",
+      "title": "Data security",
+      "description": "Addresses confidentiality of OT data and information disclosure, including data at rest and in transit."
+    },
+    {
+      "control_id": "§5.5",
+      "title": "Supply chain threats",
+      "description": "Covers third-party and supply chain risks to OT components and software."
+    },
+    {
+      "control_id": "§5.6",
+      "title": "Availability threats",
+      "description": "Addresses denial-of-service and availability risks affecting OT systems and infrastructure."
+    },
+    {
+      "control_id": "§6.2",
+      "title": "Risk assessment",
+      "description": "Guides identification of threats, vulnerabilities, and impacts for OT systems."
+    },
+    {
+      "control_id": "§6.3",
+      "title": "Risk response",
+      "description": "Defines treatment of identified OT risks, including supply chain risk management."
+    },
+    {
+      "control_id": "§7.1",
+      "title": "Security architecture",
+      "description": "Establishes secure OT architecture principles, including separation of OT from corporate networks."
+    },
+    {
+      "control_id": "§7.2",
+      "title": "Network segmentation and defense-in-depth",
+      "description": "Specifies layered network architecture and validated data flows across zone boundaries."
+    },
+    {
+      "control_id": "§7.3",
+      "title": "Data protection",
+      "description": "Defines protection of OT data at rest and in transit through encryption and access controls."
+    },
+    {
+      "control_id": "§8.2",
+      "title": "Security awareness and training",
+      "description": "Covers OT security awareness, role-based training, and security programme governance."
+    },
+    {
+      "control_id": "§8.4",
+      "title": "Supply chain risk management programme",
+      "description": "Establishes a formal OT supply chain risk management programme for vendors and components."
+    }
+  ]
+}

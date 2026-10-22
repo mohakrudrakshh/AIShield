@@ -1,0 +1,308 @@
+{
+  "id": "eu-ai-act",
+  "name": "EU AI Act",
+  "short_name": "EU AI Act",
+  "version": "2024/1689",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689",
+  "license": "Public",
+  "publisher": "European Parliament and Council",
+  "category": "regulation",
+  "last_synced": "2026-04-10",
+  "source_sha": null,
+  "controls": [
+    {
+      "control_id": "Art. 6",
+      "title": "Classification rules for high-risk AI systems",
+      "description": "Rules for determining which AI systems are classified as high-risk.",
+      "parent": null,
+      "function": "Classification"
+    },
+    {
+      "control_id": "Art. 9",
+      "title": "Risk management system",
+      "description": "Providers of high-risk AI must implement a risk management system covering all reasonably foreseeable risks.",
+      "parent": null,
+      "function": "Risk Management"
+    },
+    {
+      "control_id": "Art. 10",
+      "title": "Data and data governance",
+      "description": "Training, validation and testing data sets shall meet quality criteria including relevance, representativeness, and freedom from errors.",
+      "parent": null,
+      "function": "Data Governance"
+    },
+    {
+      "control_id": "Art. 11",
+      "title": "Technical documentation",
+      "description": "Technical documentation shall be drawn up before placing on the market and kept up-to-date.",
+      "parent": null,
+      "function": "Documentation"
+    },
+    {
+      "control_id": "Art. 12",
+      "title": "Record-keeping",
+      "description": "High-risk AI systems shall allow automatic recording of events (logs).",
+      "parent": null,
+      "function": "Logging"
+    },
+    {
+      "control_id": "Art. 13",
+      "title": "Transparency and provision of information to deployers",
+      "description": "High-risk AI systems shall be designed to ensure sufficient transparency for deployers.",
+      "parent": null,
+      "function": "Transparency"
+    },
+    {
+      "control_id": "Art. 14",
+      "title": "Human oversight",
+      "description": "High-risk AI systems shall be designed to allow effective oversight by natural persons.",
+      "parent": null,
+      "function": "Human Oversight"
+    },
+    {
+      "control_id": "Art. 15",
+      "title": "Accuracy, robustness and cybersecurity",
+      "description": "High-risk AI systems shall achieve appropriate levels of accuracy, robustness and cybersecurity.",
+      "parent": null,
+      "function": "Security"
+    },
+    {
+      "control_id": "Art. 16",
+      "title": "Obligations of providers of high-risk AI systems",
+      "description": "Providers shall ensure compliance with requirements, establish quality management, and maintain documentation.",
+      "parent": null,
+      "function": "Provider Obligations"
+    },
+    {
+      "control_id": "Art. 17",
+      "title": "Quality management system",
+      "description": "Providers shall put a quality management system in place ensuring compliance with the regulation.",
+      "parent": null,
+      "function": "Quality Management"
+    },
+    {
+      "control_id": "Art. 25",
+      "title": "Responsibilities along the AI value chain",
+      "description": "Distributors, importers, deployers, and other third parties have defined responsibilities.",
+      "parent": null,
+      "function": "Value Chain"
+    },
+    {
+      "control_id": "Art. 26",
+      "title": "Obligations of deployers of high-risk AI systems",
+      "description": "Deployers shall use AI systems in accordance with instructions, ensure human oversight, and monitor operation.",
+      "parent": null,
+      "function": "Deployer Obligations"
+    },
+    {
+      "control_id": "Art. 27",
+      "title": "Fundamental rights impact assessments",
+      "description": "Deployers of high-risk AI shall carry out an assessment of impact on fundamental rights before use.",
+      "parent": null,
+      "function": "Impact Assessment"
+    },
+    {
+      "control_id": "Art. 50",
+      "title": "Transparency obligations for certain AI systems",
+      "description": "AI systems that interact with people, generate deepfakes, or produce synthetic content must disclose this.",
+      "parent": null,
+      "function": "Transparency"
+    },
+    {
+      "control_id": "Art. 51",
+      "title": "Classification of GPAI models as systemic risk",
+      "description": "GPAI models with systemic risk are classified based on high-impact capabilities or cumulative compute thresholds.",
+      "parent": null,
+      "function": "GPAI"
+    },
+    {
+      "control_id": "Art. 53",
+      "title": "Obligations for providers of GPAI models",
+      "description": "All GPAI providers must prepare technical documentation, provide information to downstream providers, comply with copyright, and publish training data summaries.",
+      "parent": null,
+      "function": "GPAI"
+    },
+    {
+      "control_id": "Art. 54",
+      "title": "Authorised representatives of GPAI model providers",
+      "description": "GPAI providers outside the EU must appoint an authorised representative.",
+      "parent": null,
+      "function": "GPAI"
+    },
+    {
+      "control_id": "Art. 55",
+      "title": "Obligations of GPAI models with systemic risk",
+      "description": "Providers of GPAI with systemic risk must conduct model evaluations, assess and mitigate systemic risks, track incidents, and ensure adequate cybersecurity.",
+      "parent": null,
+      "function": "GPAI"
+    },
+    {
+      "control_id": "Art. 56",
+      "title": "Codes of practice",
+      "description": "The AI Office shall encourage development of codes of practice for GPAI obligations.",
+      "parent": null,
+      "function": "GPAI"
+    },
+    {
+      "control_id": "Art. 60",
+      "title": "AI regulatory sandboxes",
+      "description": "National authorities may establish regulatory sandboxes for development and testing of innovative AI.",
+      "parent": null,
+      "function": "Innovation"
+    },
+    {
+      "control_id": "Art. 62",
+      "title": "Reporting of serious incidents",
+      "description": "Providers and deployers shall report serious incidents to market surveillance authorities.",
+      "parent": null,
+      "function": "Incident Reporting"
+    },
+    {
+      "control_id": "Art. 71",
+      "title": "Post-market monitoring by providers",
+      "description": "Providers shall establish a post-market monitoring system proportionate to the AI system.",
+      "parent": null,
+      "function": "Post-Market"
+    },
+    {
+      "control_id": "Art. 72",
+      "title": "Reporting of serious incidents",
+      "description": "Detailed requirements for reporting serious incidents involving AI systems.",
+      "parent": null,
+      "function": "Incident Reporting"
+    },
+    {
+      "control_id": "Annex III",
+      "title": "High-risk AI systems",
+      "description": "List of areas where AI systems are classified as high-risk (biometrics, critical infrastructure, education, employment, essential services, law enforcement, migration, justice).",
+      "parent": null,
+      "function": "Classification"
+    },
+    {
+      "control_id": "Annex IV",
+      "title": "Technical documentation",
+      "description": "Detailed requirements for technical documentation of high-risk AI systems.",
+      "parent": null,
+      "function": "Documentation"
+    },
+    {
+      "control_id": "Cybersecurity measures preventing tool misuse",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Per-tool permission manifests and parameter validation are Art. 15 technical requirements"
+    },
+    {
+      "control_id": "Providers document obligations; deployers verify",
+      "title": "Art. 25 � Value chain responsibilities",
+      "description": "Agent tool and MCP server supply chain obligations distributed along value chain"
+    },
+    {
+      "control_id": "Post-market monitoring for memory integrity",
+      "title": "Art. 17 � Quality management",
+      "description": "Memory anomaly detection in post-market monitoring programme"
+    },
+    {
+      "control_id": "A2A communication risks identified and mitigated",
+      "title": "Art. 9 � Risk management",
+      "description": "Inter-agent channels in Art. 9 risk assessment � authentication, encryption, schema validation status"
+    },
+    {
+      "control_id": "Documentation of A2A security controls",
+      "title": "Art. 17 � Quality management",
+      "description": "A2A authentication and encryption documented in quality management system"
+    },
+    {
+      "control_id": "Technical resilience against cascading failures",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Circuit breakers, fail-safe defaults, and cascade containment architecture are Art. 15 requirements"
+    },
+    {
+      "control_id": "Deployers must use AI systems as instructed and ensure appropriate oversight",
+      "title": "Art. 29 � Deployer obligations",
+      "description": "Deployers have affirmative obligations to prevent and detect shadow AI usage"
+    },
+    {
+      "control_id": "Systemic risk GPAI providers must conduct adversarial testing to identify and mitigate systemic risks",
+      "title": "Art. 55(1)(b) � Systemic risk GPAI adversarial testing",
+      "description": "Poisoning detection adversarial testing is a binding obligation for systemic risk models"
+    },
+    {
+      "control_id": "Deployers ensure human oversight as instructed by provider",
+      "title": "Art. 29 � Deployer obligations",
+      "description": "Deployers responsible for ensuring endpoint AI agents operate within Art. 14 human oversight scope"
+    },
+    {
+      "control_id": "Post-market monitoring covering security incidents",
+      "title": "Art. 17 � Quality management",
+      "description": "Model extraction detection in post-market monitoring programme"
+    },
+    {
+      "control_id": "Systemic risk GPAI providers must assess and mitigate risks including disinformation",
+      "title": "Art. 55(1)(a) � Systemic risk GPAI",
+      "description": "Disinformation risk assessment and RAG integrity controls are binding Art. 55 obligations; Misinformation risk assessment and mitigation is a binding obligation for systemic risk models"
+    },
+    {
+      "control_id": "Providers of systemic risk GPAI models must conduct adversarial testing to identify and mitigate systemic risks",
+      "title": "Art. 55(1)(b) � Systemic risk GPAI",
+      "description": "Prompt injection adversarial testing is a binding obligation for systemic risk models"
+    },
+    {
+      "control_id": "Systemic risk GPAI providers must conduct adversarial testing to identify model-level risks",
+      "title": "Art. 55(1)(b) � Systemic risk GPAI adversarial testing",
+      "description": "Poisoning detection is in scope for Art. 55 adversarial testing"
+    },
+    {
+      "control_id": "Documented procedures covering output quality",
+      "title": "Art. 17 � Quality management",
+      "description": "Post-market monitoring of output handling incidents required"
+    },
+    {
+      "control_id": "Autonomy-related risks identified and mitigated",
+      "title": "Art. 9 � Risk management",
+      "description": "Excessive agency scenarios required in risk management system"
+    },
+    {
+      "control_id": "Deployers must ensure human oversight as instructed by provider",
+      "title": "Art. 29 � Deployer obligations",
+      "description": "Deployers cannot waive Art. 14 human oversight requirements"
+    },
+    {
+      "control_id": "Configuration management documented",
+      "title": "Art. 17 � Quality management",
+      "description": "System prompt versions, access controls, and change procedures are quality management artefacts"
+    },
+    {
+      "control_id": "GPAI providers must publish summaries of training data and model capabilities",
+      "title": "Art. 53(1)(b) � GPAI transparency",
+      "description": "Published summaries must not inadvertently expose security-sensitive configuration"
+    },
+    {
+      "control_id": "Technical robustness against adversarial manipulation",
+      "title": "Art. 15 � Accuracy, robustness, cybersecurity",
+      "description": "Embedding manipulation resistance is an Art. 15 technical requirement"
+    },
+    {
+      "control_id": "Availability risks identified and mitigated",
+      "title": "Art. 9 � Risk management",
+      "description": "Resource exhaustion and DoS scenarios included in risk management system"
+    },
+    {
+      "control_id": "Operational continuity procedures documented",
+      "title": "Art. 17 � Quality management",
+      "description": "Post-market monitoring and incident response for availability failures required"
+    },
+    {
+      "control_id": "Art. 53(1)(a)",
+      "title": "GPAI documentation",
+      "description": "Providers of general-purpose AI models shall draw up and keep up-to-date technical documentation of the model, including its training and testing process.",
+      "parent": "Art. 53",
+      "function": "GPAI"
+    }
+  ],
+  "changelog": [
+    {
+      "date": "2026-04-09",
+      "change": "Initial seed — 25 key articles and annexes from Regulation 2024/1689",
+      "author": "mohakrudrakshh"
+    }
+  ]
+}

@@ -1,0 +1,631 @@
+{
+  "id": "DSGAI18",
+  "name": "Inference and Data Reconstruction",
+  "source_list": "DSGAI-2026",
+  "version": "2026-Q1",
+  "severity": "High",
+  "aivss_score": null,
+  "audience": [
+    "red-teamer",
+    "security-engineer",
+    "ciso",
+    "compliance",
+    "ml-engineer",
+    "ot-engineer",
+    "auditor",
+    "developer",
+    "data-engineer"
+  ],
+  "mappings": [
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0024.000",
+      "control_name": "Infer Membership",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Adversary determines whether specific sensitive records were used in training through systematic query analysis"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0025",
+      "control_name": "Exfiltrate via Cyber Means",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Training data confirmed present and partially reconstructed through inference, then exfiltrated"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0024.001",
+      "control_name": "Invert ML Model",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Adversary reconstructs sensitive training examples from model outputs through systematic query campaigns"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "GV-1.6",
+      "control_name": "Policies for data privacy",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Privacy policy extended to cover inference attack resistance — not just direct disclosure"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MP-2.3",
+      "control_name": "Risk categorisation",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Inference attack risks mapped — membership inference, model inversion, embedding inversion per deployment"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MS-2.5",
+      "control_name": "Testing — adversarial",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Red team exercises covering membership inference and model inversion attack scenarios"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MG-2.4",
+      "control_name": "Risk response — data",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Response for confirmed inference attack — unlearning, output rate limiting, disclosure assessment"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 10",
+      "control_name": "Data and data governance",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Differential privacy and inference attack resistance are Art. 10 data governance requirements"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 15",
+      "control_name": "Accuracy, robustness, cybersecurity",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Output rate limiting, confidence score suppression, and embedding encryption are Art. 15 requirements"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.11",
+      "control_name": "Data masking",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Differential privacy and output masking reducing information available for reconstruction attacks"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.5.34",
+      "control_name": "Privacy and PII protection",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Privacy requirements extended to cover inference attack resistance — not just direct disclosure"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.24",
+      "control_name": "Use of cryptography",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Cryptographic protection of embedding vectors preventing inversion attacks"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.12",
+      "control_name": "Data leakage prevention",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Output monitoring for responses that reconstruct training data or sensitive source content"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.7.2",
+      "control_name": "Data — privacy-preserving",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.5.2",
+      "control_name": "Impact assessment",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.6.2.6",
+      "control_name": "Lifecycle — testing",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Advanced"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "Cl.6.1",
+      "control_name": "Planning — risk",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 3",
+      "control_name": "3.11 — Encrypt sensitive data at rest",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 18",
+      "control_name": "18.1 — Penetration testing",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V8.3.4",
+      "control_name": "Sensitive data identified",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V6.1.1",
+      "control_name": "Sensitive data not stored in cleartext",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 4.1",
+      "control_name": "Data confidentiality",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Inference attack resistance as OT data protection measure — differential privacy for OT training data"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 6.6",
+      "control_name": "Timely response to events",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Inference attack campaigns detected — systematic query patterns indicative of AML.T0024.000 alerted"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 3.3",
+      "control_name": "Software and information integrity",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Confidence score suppression as OT integrity control — limits information available for model inversion"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§5.4",
+      "control_name": "Data security",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Protect against inference-based OT data recovery"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§6.2",
+      "control_name": "Risk assessment",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Assess inference exposure"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§7.3",
+      "control_name": "Data flow controls",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Limit signals enabling inference"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "PR.DS-01",
+      "control_name": "Data Security",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Reconstruction resistance as data protection measure — differential privacy in training, confidence score suppression"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "DE.CM-09",
+      "control_name": "Continuous Monitoring",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Monitoring for inference attack patterns — systematic output space probing detected"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "ID.RA-01",
+      "control_name": "Risk Assessment",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Inference attack risks documented per deployment — models trained on sensitive data assessed"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "GV.RM-06",
+      "control_name": "Risk Management Strategy",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Risk tolerance for inference attacks established — acceptable reconstruction risk defined per use case"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "C2.1",
+      "control_name": "Confidential information protection",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "P5.1",
+      "control_name": "Personal information use",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC7.2",
+      "control_name": "Anomaly detection",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC3.2",
+      "control_name": "Risk assessment",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 3.4.1",
+      "control_name": "PAN rendering",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "PANs reconstructed from model outputs must be prevented — inference attack resistance as Req 3 control"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 3.5.1",
+      "control_name": "Protect stored CHD",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Embeddings that can reconstruct PANs require Req 3 protection — differential privacy as encryption equivalent"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 11.3.1",
+      "control_name": "Penetration testing",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Inference attack testing for GenAI models trained on CHD — membership inference and inversion attacks"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 12.3.2",
+      "control_name": "Targeted risk analysis",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Targeted risk analysis for inference attack risk against CHD-trained GenAI models"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "Data and Model Security (DMS)",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Differential privacy, output perturbation, and prediction API rate limiting applied as DMS privacy-preserving controls"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "AI System Integrity (ASI)",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Inference attack red teaming included in AI system integrity verification — membership inference, model inversion, attribute inference tested before deployment"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "Governance and Risk (GOV)",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Inference attack risk documented in AI risk assessment — treatment controls (differential privacy, output restrictions) justified"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "Monitoring and Detection (MON)",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Prediction API monitoring for inference attack patterns — high-volume, systematic query patterns that indicate shadow model training"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "D-TA",
+      "control_name": "Design / Threat Assessment",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Model membership/inversion/attribute-inference exposure"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "V-ST",
+      "control_name": "Verification / Security Testing",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Measure attack advantage against a documented threshold"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "O-OM",
+      "control_name": "Operations / Operational Management",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Limit signals (logits/confidence) that aid inference"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "I",
+      "control_name": "Inference Disclosure",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-200",
+      "control_name": "Exposure of Sensitive Information",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-327",
+      "control_name": "Use of a Broken or Risky Cryptographic Algorithm",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "DPT",
+      "control_name": "Data Protection",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Run membership-inference and inversion attacks against the deployed model"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "MBT",
+      "control_name": "Model Behaviour",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Verify the model/API does not expose signals (logits, confidence) that aid inference"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L1",
+      "control_name": "Foundation Models",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L2",
+      "control_name": "Data Operations",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L5",
+      "control_name": "Evaluation & Observability",
+      "tier": "Hardening",
+      "scope": "Both"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "A",
+      "control_name": "Data & Privacy domain",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "B004",
+      "control_name": "Prevent AI endpoint scraping",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "B006",
+      "control_name": "Prevent unauthorized AI actions",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-5",
+      "control_name": "Over-Privileged NHI",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Scope and rate-limit inference identities"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-7",
+      "control_name": "Long-Lived Credentials",
+      "tier": "Hardening",
+      "scope": "Both",
+      "notes": "Short-lived inference tokens with per-principal budgets"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PW.8.2-PS",
+      "control_name": "Adversarial inference testing",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Run membership-inference/inversion attacks"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PW.7.2-PS",
+      "control_name": "Review of inference exposure",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Limit signals (logits/confidence) aiding inference"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PS.1.1-PS",
+      "control_name": "Protect training data",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Access-control and minimise training data"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "SC-28",
+      "control_name": "Protection of Information at Rest — model and data protection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Encrypt model weights and training data at rest; implement privacy-preserving storage to limit reconstruction attack surface"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "AC-3",
+      "control_name": "Access Enforcement — inference API access control",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Enforce access controls on inference endpoints; rate-limit API access; restrict bulk query patterns enabling reconstruction"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "SI-4",
+      "control_name": "System Monitoring — probing pattern detection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Monitor inference endpoints for systematic probing patterns — membership inference, model inversion, attribute inference; alert on detection"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "RA-5",
+      "control_name": "Vulnerability Scanning — reconstruction risk assessment",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Include model inversion and membership inference attacks in vulnerability assessment; test deployed models for data reconstruction risk"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 9",
+      "control_name": "Protection and Prevention – inference attack controls",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Implement privacy-preserving model deployment; apply differential privacy during training; rate limiting and access controls on inference endpoints"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 24–27",
+      "control_name": "Resilience Testing – reconstruction testing",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Include model inversion, membership inference, and attribute inference testing in resilience testing programme"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 10",
+      "control_name": "Detection – probing pattern detection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Monitor inference endpoints for systematic probing patterns; detect membership inference and model inversion attempts"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 13",
+      "control_name": "Learning and Evolving – inference attack improvement",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Apply lessons learned from inference attacks; update privacy controls and detection mechanisms"
+    }
+  ],
+  "tools": [
+    {
+      "name": "IBM Adversarial Robustness Toolbox",
+      "type": "open-source",
+      "url": "https://github.com/Trusted-AI/adversarial-robustness-toolbox"
+    },
+    {
+      "name": "ML Privacy Meter",
+      "type": "open-source",
+      "url": "https://github.com/privacytrustlab/ml_privacy_meter"
+    },
+    {
+      "name": "TensorFlow Privacy",
+      "type": "open-source",
+      "url": "https://github.com/tensorflow/privacy"
+    },
+    {
+      "name": "OpenDP",
+      "type": "open-source",
+      "url": "https://github.com/opendp/opendp"
+    },
+    {
+      "name": "Opacus",
+      "type": "open-source",
+      "url": "https://opacus.ai"
+    },
+    {
+      "name": "Microsoft Presidio",
+      "type": "open-source",
+      "url": "https://github.com/microsoft/presidio"
+    },
+    {
+      "name": "Fiddler AI",
+      "type": "commercial",
+      "url": "https://www.fiddler.ai"
+    },
+    {
+      "name": "ARX Data Anonymization",
+      "type": "open-source",
+      "url": "https://arx.deidentifier.org"
+    }
+  ],
+  "incidents": [],
+  "crossrefs": {
+    "llm_top10": [
+      "LLM02",
+      "LLM08"
+    ],
+    "dsgai_2026": [
+      "DSGAI10"
+    ],
+    "agentic_top10": [
+      "ASI03",
+      "ASI01"
+    ]
+  },
+  "changelog": [
+    {
+      "date": "2026-03-27",
+      "version": "1.0.0",
+      "change": "Initial entry — generated from AIShield v1.5.1 mapping files",
+      "author": "mohakrudrakshh"
+    }
+  ]
+}

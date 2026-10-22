@@ -1,0 +1,732 @@
+{
+  "id": "DSGAI06",
+  "name": "Tool Plugin and Agent Data Exchange",
+  "source_list": "DSGAI-2026",
+  "version": "2026-Q1",
+  "severity": "High",
+  "aivss_score": null,
+  "audience": [
+    "red-teamer",
+    "security-engineer",
+    "ciso",
+    "compliance",
+    "ml-engineer",
+    "ot-engineer",
+    "auditor",
+    "developer",
+    "data-engineer"
+  ],
+  "mappings": [
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0051",
+      "control_name": "LLM Prompt Injection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Malicious MCP server exploits trust relationship with agent to capture context payloads"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0057",
+      "control_name": "LLM Data Leakage",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Context data flowing through tool integrations captured and transmitted to adversary"
+    },
+    {
+      "framework": "MITRE ATLAS",
+      "control_id": "AML.T0035",
+      "control_name": "Exfiltrate via ML Inference API",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Tool API acts as exfiltration channel — sensitive context content captured in tool call payloads"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "GV-1.6",
+      "control_name": "Policies for data privacy",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Third-party data handling policy covering all tool and plugin integrations"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MP-5.1",
+      "control_name": "Interdependencies",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All tool and plugin integrations mapped — data received, retained, and used for training"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MS-2.5",
+      "control_name": "Testing — adversarial",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Security testing of tool API integrations — payload inspection, data minimisation validation"
+    },
+    {
+      "framework": "NIST AI RMF 1.0",
+      "control_id": "MG-3.2",
+      "control_name": "Residual risk — third party",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Residual risk from tool providers documented, monitored, and reviewed"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 9",
+      "control_name": "Risk management",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All tool integrations assessed in Art. 9 risk management"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 25",
+      "control_name": "Value chain responsibilities",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Tool data exchange obligations explicitly distributed along the value chain"
+    },
+    {
+      "framework": "EU AI Act",
+      "control_id": "Art. 53(1)(a)",
+      "control_name": "GPAI documentation",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Tool and plugin data exchange documented in GPAI technical documentation"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.5.19",
+      "control_name": "Supplier relationships",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Security due diligence on all tool and plugin providers receiving agent context"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.5.20",
+      "control_name": "Supplier agreements",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Contractual requirements covering data minimisation, retention, and training use for tool providers"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.8.3",
+      "control_name": "Information access restriction",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Tools receive only the minimum context required for their function — not full conversation history"
+    },
+    {
+      "framework": "ISO/IEC 27001:2022",
+      "control_id": "A.5.23",
+      "control_name": "Security for cloud services",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Cloud-based tool and plugin providers assessed against A.5.23 security requirements"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.10.1",
+      "control_name": "Third-party — AI supply chain",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.10.2",
+      "control_name": "Third-party — customer data",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.6.1.2",
+      "control_name": "Lifecycle — design",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "ISO/IEC 42001:2023",
+      "control_id": "A.7.2",
+      "control_name": "Data — acquisition",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 4",
+      "control_name": "4.2 — Maintain secure configuration of cloud assets",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 6",
+      "control_name": "6.4 — Require password manager",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CIS Controls v8.1",
+      "control_id": "CIS 15",
+      "control_name": "15.1 — Establish service provider management policy",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V4.1.1",
+      "control_name": "Access control on every request",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V9.1.1",
+      "control_name": "TLS for all connections",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP ASVS 4.0.3",
+      "control_id": "V11.1.4",
+      "control_name": "Business logic limits on repeated actions",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 3.2",
+      "control_name": "Software and information integrity",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All OT tool integrations assessed — security requirements in vendor contracts per 62443-2-4"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 5.3",
+      "control_name": "Information flow restriction",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "OT-sensitive context minimised before tool API calls — tools receive minimum required, not full OT context"
+    },
+    {
+      "framework": "ISA/IEC 62443",
+      "control_id": "SR 6.6",
+      "control_name": "Timely response to events",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Tool data exchange anomalies detected — unusual data volumes in tool calls alerted"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§5.5",
+      "control_name": "Supply chain / connectivity",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Tool/vendor integrations cross the OT trust boundary"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§6.3",
+      "control_name": "Supply chain risk",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Assess each integration's data exchange"
+    },
+    {
+      "framework": "NIST SP 800-82 Rev 3",
+      "control_id": "§7.3",
+      "control_name": "Data flow controls",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Validate and minimise cross-boundary data"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "GV.SC-01",
+      "control_name": "Supply Chain Risk Management",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Tool and plugin providers treated as suppliers — data handling requirements in contracts"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "PR.AA-05",
+      "control_name": "Identity Management, Authentication & Access Control",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Context minimisation — tools receive minimum required payload, not full context history"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "DE.CM-01",
+      "control_name": "Continuous Monitoring",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All tool API calls monitored — DLP on outbound tool payloads"
+    },
+    {
+      "framework": "NIST CSF 2.0",
+      "control_id": "ID.AM-08",
+      "control_name": "Asset Management",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All tool integrations inventoried — data received, retained, training use, security assessment status"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC9.1",
+      "control_name": "Vendor risk",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC9.2",
+      "control_name": "Vendor agreements",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "C2.1",
+      "control_name": "Confidential information protection",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "SOC 2",
+      "control_id": "CC6.1",
+      "control_name": "Logical access",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 12.8.1",
+      "control_name": "TPSP list",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All tool and plugin providers receiving CHD in TPSP list — even if access is indirect through agent context"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 12.8.3",
+      "control_name": "TPSP agreements",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Written agreements with tool providers acknowledging CHD security responsibility"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 7.2.1",
+      "control_name": "Restrict access",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Context minimisation — tools receive minimum CHD-containing context required"
+    },
+    {
+      "framework": "PCI DSS v4.0",
+      "control_id": "Req 10.2.1",
+      "control_name": "Logging",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All tool call payloads containing CHD logged — Req 10 audit trail requirement"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "SCS",
+      "control_name": "Supply Chain Security",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All tools, plugins, and agent connectors treated as supply chain components — security assessment before integration, ongoing monitoring"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L2",
+      "control_name": "AI System Integrity (ASI)",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Tool descriptors and API responses validated before use — content received from external tools treated as untrusted input"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "MON",
+      "control_name": "Monitoring and Detection",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "All tool invocations logged — data volumes, destination, and content patterns monitored for anomalies"
+    },
+    {
+      "framework": "ENISA Multilayer Framework",
+      "control_id": "L1",
+      "control_name": "General ICT — Supply Chain",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Plugin SBOM maintained — all integration components inventoried, vulnerabilities tracked"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "D-SA",
+      "control_name": "Design / Security Architecture",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Treat all tool I/O as crossing a trust boundary"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "I-SB",
+      "control_name": "Implementation / Secure Build",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Validate tool responses before use; send only required fields"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "V-ST",
+      "control_name": "Verification / Security Testing",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Inject malicious tool responses and verify handling"
+    },
+    {
+      "framework": "OWASP SAMM v2.0",
+      "control_id": "G-PC",
+      "control_name": "Governance / Policy & Compliance",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Require review before a tool/plugin is connected"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "T",
+      "control_name": "Exchange Tampering",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "I",
+      "control_name": "Cross-Boundary Disclosure",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "STRIDE",
+      "control_id": "E",
+      "control_name": "Privilege Elevation",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-284",
+      "control_name": "Improper Access Control",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-269",
+      "control_name": "Improper Privilege Management",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "CWE/CVE",
+      "control_id": "CWE-602",
+      "control_name": "Client-side Enforcement of Server-side Security",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "AST",
+      "control_name": "Agent-Specific",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Verify tool return values are treated as untrusted and validated before use"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "ACT",
+      "control_name": "Access Control",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Confirm each tool receives only the data it requires for its function"
+    },
+    {
+      "framework": "OWASP AI Testing Guide",
+      "control_id": "OHT",
+      "control_name": "Output Handling",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Verify sensitive fields are stripped from tool inputs unless required"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L3",
+      "control_name": "Agent Frameworks",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L2",
+      "control_name": "Data Operations",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "MAESTRO",
+      "control_id": "L6",
+      "control_name": "Security & Compliance",
+      "tier": "Foundational",
+      "scope": "Both"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "A",
+      "control_name": "Data & Privacy domain",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "B003",
+      "control_name": "Manage public release of technical details",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Hardening"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "B007",
+      "control_name": "Enforce user access privileges",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "AIUC-1",
+      "control_id": "E",
+      "control_name": "Audit trails and logging",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Foundational"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-3",
+      "control_name": "Vulnerable Third-Party NHI",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Vet and minimum-scope every tool credential"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-5",
+      "control_name": "Over-Privileged NHI",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Scope tool identities per function"
+    },
+    {
+      "framework": "OWASP NHI Top 10",
+      "control_id": "NHI-9",
+      "control_name": "NHI Reuse",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Distinct credential per tool/integration"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PW.4.1-PS",
+      "control_name": "Vet third-party tools & plugins",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Review and minimum-scope each integration"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PS.1.1-PS",
+      "control_name": "Protect data exchanged with tools",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Validate tool returns; minimise tool inputs"
+    },
+    {
+      "framework": "NIST SP 800-218A",
+      "control_id": "PW.2.1-PS",
+      "control_name": "Design review of trust boundaries",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Model tool I/O as a trust boundary"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "AC-3",
+      "control_name": "Access Enforcement — tool data exchange controls",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Enforce access controls on all data exchanged with tools and plugins; restrict data sharing to minimum necessary per tool permission manifest"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "SA-9",
+      "control_name": "External Information System Services — plugin provider controls",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Require security assessment for all third-party tool and plugin providers; establish data handling SLAs covering sensitivity and retention"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "AU-2",
+      "control_name": "Event Logging — tool interaction logging",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Log all data exchanged with external tools and plugins; capture tool identity, data elements shared, and response data received"
+    },
+    {
+      "framework": "FedRAMP",
+      "control_id": "SC-7",
+      "control_name": "Boundary Protection — tool data flow enforcement",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Enforce boundary controls on data flows to external tools; prevent uncontrolled data transfer to plugin endpoints"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 28–44",
+      "control_name": "Third-Party Risk – tool/plugin provider oversight",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Include AI tool and plugin providers in third-party ICT risk management; assess data handling, security controls, and data minimisation practices"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 9",
+      "control_name": "Protection and Prevention – data exchange controls",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Implement data minimisation and access controls on all data exchanged with external tools; enforce least privilege per tool"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 10",
+      "control_name": "Detection – tool data flow monitoring",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Monitor data flows to and from external tools; detect unauthorised data transfers or excessive data sharing"
+    },
+    {
+      "framework": "DORA",
+      "control_id": "Art. 5–7",
+      "control_name": "ICT Risk Management – tool governance",
+      "tier": "Foundational",
+      "scope": "Both",
+      "notes": "Include tool and plugin data exchange policies in ICT risk management; define approved data sharing scope per tool"
+    }
+  ],
+  "tools": [
+    {
+      "name": "MCP Inspector",
+      "type": "open-source",
+      "url": "https://github.com/modelcontextprotocol/inspector"
+    },
+    {
+      "name": "Nightfall AI",
+      "type": "commercial",
+      "url": "https://nightfall.ai"
+    },
+    {
+      "name": "OWASP Dependency-Check",
+      "type": "open-source",
+      "url": "https://github.com/jeremylong/DependencyCheck"
+    },
+    {
+      "name": "Semgrep",
+      "type": "open-source",
+      "url": "https://github.com/returntocorp/semgrep"
+    },
+    {
+      "name": "Guardrails AI",
+      "type": "open-source",
+      "url": "https://github.com/guardrails-ai/guardrails"
+    },
+    {
+      "name": "NeMo Guardrails",
+      "type": "open-source",
+      "url": "https://github.com/NVIDIA/NeMo-Guardrails"
+    },
+    {
+      "name": "Open Policy Agent",
+      "type": "open-source",
+      "url": "https://www.openpolicyagent.org"
+    },
+    {
+      "name": "OpenTelemetry",
+      "type": "open-source",
+      "url": "https://opentelemetry.io"
+    },
+    {
+      "name": "Netskope",
+      "type": "commercial",
+      "url": "https://www.netskope.com"
+    },
+    {
+      "name": "Collibra",
+      "type": "commercial",
+      "url": "https://www.collibra.com"
+    },
+    {
+      "name": "Nightfall DLP",
+      "type": "commercial",
+      "url": "https://www.nightfall.ai"
+    },
+    {
+      "name": "MLflow",
+      "url": "https://github.com/mlflow/mlflow",
+      "type": "open-source"
+    }
+  ],
+  "incidents": [
+    {
+      "name": "Anthropic Sleeper Agents paper — models trained to hide malicious behaviour",
+      "url": "https://mohakrudrakshh.github.io/genai_incidents/incident/INC-03572.html",
+      "year": 2024,
+      "incident_id": "INC-03572"
+    }
+  ],
+  "crossrefs": {
+    "agentic_top10": [
+      "ASI02",
+      "ASI04",
+      "ASI07"
+    ],
+    "llm_top10": [
+      "LLM06",
+      "LLM03",
+      "LLM05"
+    ]
+  },
+  "changelog": [
+    {
+      "date": "2026-03-27",
+      "version": "1.0.0",
+      "change": "Initial entry — generated from AIShield v1.5.1 mapping files",
+      "author": "mohakrudrakshh"
+    }
+  ]
+}

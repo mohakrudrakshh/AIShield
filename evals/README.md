@@ -1,0 +1,254 @@
+<!--
+  AIShield
+  Document  : Evaluation Profiles — Setup and Usage
+  Version   : 2.0.1 — 2026-06-10
+  License   : CC BY-SA 4.0
+-->
+
+# Evaluation Profiles
+
+Runnable security test profiles mapped to OWASP GenAI vulnerability entries.
+
+> **Authorisation required.** Run these profiles only against systems you own
+> or have explicit written permission to test. They are for pre-production
+> gates, red-team exercises, and defensive validation — not for testing
+> third-party systems.
+>
+> **Reproducibility.** Tool APIs and probe catalogues change between releases.
+> All profiles are pinned and validated against the versions in
+> [`requirements.txt`](requirements.txt) (**garak 0.15.1**, **PyRIT 0.14.0**).
+> Install with `pip install -r evals/requirements.txt` and bump deliberately.
+
+---
+
+## Verification status
+
+Checked **2026-05-29/30** against the then-pinned versions, and **re-verified
+2026-06-10** against the current pins (**garak 0.15.1**, **PyRIT 0.14.0**,
+**inspect-ai 0.3.237**) — all tracks still pass end-to-end vs `gpt-4o-mini`; the
+version bumps introduced no regressions.
+"Runtime-verified" means it was executed end-to-end (against `gpt-4o-mini` where a
+model is needed); "offline-verified" means the config/script was validated against
+the real installed package (probe registry, API surface, task build) **without** a
+live model call.
+
+| Track | Status | Evidence |
+|---|---|---|
+| `modelscan/` | **Runtime-verified** | benign → CLEAN/exit 0, malicious fixture → CRITICAL/exit 1 ([sample](samples/modelscan_sample.txt)) |
+| `garak/` | **Runtime-verified** | all 17 configs load their probes (`test.Blank`, no API); `LLM01` ran end-to-end vs `gpt-4o-mini` (e.g. `dan.DanInTheWild` 185/256, 27.7% attack-success) |
+| `pyrit/` | **Runtime-verified** | `llm01_prompt_injection.py` ran end-to-end vs `gpt-4o-mini` with `SelfAskTrueFalseScorer` LLM-judge scoring (7 probes, correct PASS/FAIL + exit code) |
+| `inspect/` | **Runtime-verified** | `agentic_goal_hijack.py` ran vs `gpt-4o-mini`; `model_graded_qa` scored it (3 samples, accuracy 1.000) |
+| `privacy/` | **Runtime-verified** | canary audit ran vs `gpt-4o-mini` (0/2 recall → PASS); PII scan detected EMAIL/CREDIT_CARD via Presidio → FAIL/exit 1 |
+| `guardrails/` | **Runtime-verified** | NeMo: config loaded + blocked a jailbreak vs `gpt-4o-mini`. Prompt Guard eval ran via `PROMPT_GUARD_MODEL=protectai/deberta-v3-base-prompt-injection-v2` → 6/6 malicious detected (100%), 0 false positives, PASS (Meta Prompt Guard 2 is the gated default — needs `huggingface-cli login`) |
+| `promptfoo/` | Doc-verified | `owasp:llm` / `owasp:agentic` plugin collections per promptfoo redteam docs |
+
+> Live verification fixed two bugs that offline checks could not catch: PyRIT's
+> `OpenAIChatTarget` appends `/chat/completions` to the endpoint (the harness was
+> passing the full URL → doubled path), and garak does not strip whitespace from a
+> folded-YAML `probe_spec` (every probe after the first silently became "unknown")
+> — `probe_spec` is now single-line in all 17 configs.
+
+**All eight tracks are runtime-verified.** The Meta Prompt Guard 2 *model* is gated
+on Hugging Face (needs `huggingface-cli login` + license), but the guardrail eval
+itself is proven against an open classifier and any model is selectable via
+`PROMPT_GUARD_MODEL`.
+
+---
+
+## What's here
+
+**8 tool tracks** spanning the full eval matrix — offensive *and* defensive,
+runtime *and* static, model · app · agent · data-pipeline:
+
+| Folder | Tool | Track | Contents |
+|---|---|---|---|
+| `garak/` | [Garak](https://github.com/NVIDIA/garak) 0.15.1 | offensive · model | **17** YAML profiles (10 LLM + 4 Agentic + 3 DSGAI) + auto-discovering `run_all.sh` |
+| `pyrit/` | [PyRIT](https://github.com/Azure/PyRIT) 0.14.0 | offensive · model | **6** scenario scripts + shared `_harness.py` (LLM-as-judge scoring) |
+| `laaf/` | [LAAF v2.0](https://github.com/qorvexconsulting1/laaf-V2.0) | offensive · LPCI | **6** LPCI stage configs (S1–S6) + `laaf_crosswalk.py` reporter |
+| `promptfoo/` | [promptfoo](https://www.promptfoo.dev/docs/red-team/) 0.121.15 | offensive · **app/CI** | OWASP LLM + Agentic red-team config for CI gating |
+| `inspect/` | [Inspect AI](https://inspect.aisi.org.uk/) 0.3.237 + AgentDojo/AgentHarm | offensive · **agent** | native ASI01 task + Agentic Top 10 → `inspect_evals` mapping |
+| `modelscan/` | [ModelScan](https://github.com/protectai/modelscan) 0.8.8 | **static · supply chain** | model-artifact scanner (LLM03 / DSGAI17), no API key |
+| `guardrails/` | Prompt Guard 2 · [NeMo Guardrails](https://github.com/NVIDIA/NeMo-Guardrails) 0.22.0 | **defensive** | input/output guardrail evaluation |
+| `privacy/` | [Presidio](https://github.com/microsoft/presidio) · canary audit | **data security** | PII output scan (DSGAI01) + canary extraction audit (DSGAI18) |
+| `ci/` | GitHub Actions | — | Workflow template wiring the tools into CI/CD |
+| `requirements.txt` | pip / npx | — | Pinned tool versions for reproducible runs |
+
+The first three tracks are all *offensive, prompt-based, runtime* tools; the
+last five fill the rest of the matrix (app/CI, agentic tool-use, static
+supply-chain, guardrail defense, and data-security/privacy). Each profile maps
+explicitly to an OWASP entry, and `scripts/validate.js` enforces that every
+profile references a valid OWASP ID and an existing crosswalk file.
+
+---
+
+## Prerequisites
+
+```bash
+pip install -r evals/requirements.txt        # garak 0.15.1 + pyrit 0.14.0
+
+export OPENAI_API_KEY=sk-...                  # required
+export OPENAI_MODEL=gpt-4o-mini               # optional (PyRIT scripts)
+```
+
+LAAF is installed separately (it is not on PyPI):
+
+```bash
+pip install git+https://github.com/qorvexconsulting1/laaf-V2.0.git
+```
+
+---
+
+## Garak
+
+```bash
+# Single profile (target/model come from the config; override on the CLI)
+garak --config evals/garak/LLM01_prompt_injection.yaml
+
+# Point at your deployment
+garak --config evals/garak/LLM01_prompt_injection.yaml \
+      --target_type openai --target_name gpt-4o
+
+# Run the whole suite (auto-discovers every *.yaml in garak/)
+bash evals/garak/run_all.sh
+GARAK_TARGET_TYPE=openai GARAK_TARGET_NAME=gpt-4o bash evals/garak/run_all.sh
+```
+
+`run_all.sh` discovers profiles by globbing the directory, so new profiles are
+picked up automatically — there is no hardcoded list to drift out of sync.
+Results are written to `evals/results/<timestamp>/`.
+
+Config schema note (garak 0.15.1): probe and detector selection live **under
+`plugins:`** (`plugins.probe_spec`, `plugins.detector_spec`,
+`plugins.extended_detectors`), and the target is set with
+`plugins.target_type` / `plugins.target_name`. Verify probe names for your
+installed version with `garak --list_probes`.
+
+## PyRIT
+
+```bash
+python evals/pyrit/llm01_prompt_injection.py
+```
+
+The scripts share [`_harness.py`](pyrit/_harness.py), which owns the PyRIT
+0.14.0 API in one place (`initialize_pyrit_async`, `executor.attack`,
+`SelfAskTrueFalseScorer`). Attack success is judged by an **LLM scorer**, not by
+substring matching, and indirect-injection probes deliver their payload through
+a retrieved-context channel via `as_retrieved_context()`. Exit code `0` = pass,
+`1` = fail, `2` = setup error — usable directly in CI.
+
+## LAAF (LPCI)
+
+```bash
+# Run a scan then produce a crosswalk report
+python evals/laaf/laaf_crosswalk.py --run-scan \
+  --target openai --model gpt-4o-mini --stages S1 S2 S3
+
+# Map existing results to OWASP + MAESTRO layers
+python evals/laaf/laaf_crosswalk.py --results-dir evals/results/laaf/latest/ --format md
+```
+
+LAAF v2.0 exercises Logic-layer Prompt Control Injection across six stages
+(S1 Reconnaissance → S6 Trace Tampering). `laaf_crosswalk.py` maps each stage's
+findings to OWASP entries and MAESTRO architectural layers.
+
+---
+
+## Profile → OWASP mapping
+
+### Garak (17)
+
+| Profile | OWASP Entry | MITRE ATLAS | Controls validated |
+|---|---|---|---|
+| `LLM01_prompt_injection` | LLM01 Prompt Injection | AML.T0051.000/.001, AML.T0054 | Input validation, context separation |
+| `LLM02_sensitive_disclosure` | LLM02 Sensitive Info Disclosure | AML.T0024, AML.T0057 | Output scanning, DLP, RAG access control |
+| `LLM03_supply_chain` | LLM03 Supply Chain | AML.T0010, AML.T0058 | Dependency integrity (package hallucination) |
+| `LLM04_data_poisoning` | LLM04 Data & Model Poisoning | AML.T0020, AML.T0031 | Data integrity, adversarial robustness |
+| `LLM05_output_handling` | LLM05 Improper Output Handling | AML.T0048, AML.T0057 | Output encoding, downstream injection |
+| `LLM06_excessive_agency` | LLM06 Excessive Agency | AML.T0053, AML.T0051.001 | Tool least-privilege, action authorisation |
+| `LLM07_system_prompt_leakage` | LLM07 System Prompt Leakage | AML.T0051.000, AML.T0057 | System-prompt confidentiality |
+| `LLM08_embeddings` | LLM08 Vector & Embedding Weaknesses | AML.T0051.001, AML.T0070 | Retrieved-context validation |
+| `LLM09_misinformation` | LLM09 Misinformation | AML.T0048, AML.T0062 | Output factuality, hallucination |
+| `LLM10_resource_exhaustion` | LLM10 Unbounded Consumption | AML.T0034, AML.T0029 | Rate/quota controls, resource limits |
+| `ASI01_goal_hijack` | ASI01 Agent Goal Hijack | AML.T0051, AML.T0054 | Goal integrity, instruction hierarchy |
+| `ASI05_code_execution` | ASI05 Unexpected Code Execution | AML.T0050, AML.T0011 | Sandboxing, exec controls (CWE-78/94) |
+| `ASI07_lateral_chaining` | ASI07 Insecure Inter-Agent Comms | AML.T0051.001, AML.T0066 | Message validation, data-in-transit |
+| `ASI08_cascade_failure` | ASI08 Cascading Agent Failures | AML.T0048, AML.T0054 | Cascade detection, circuit-breaking |
+| `DSGAI01_sensitive_data_leakage` | DSGAI01 Sensitive Data Leakage | AML.T0057, AML.T0024 | Data leakage prevention, output DLP |
+| `DSGAI12_nl_data_gateway` | DSGAI12 Unsafe NL Data Gateways | AML.T0050, AML.T0048 | Parameterised queries (CWE-89) |
+| `DSGAI18_inference_reconstruction` | DSGAI18 Inference & Data Reconstruction | AML.T0024.000/.002 | Data masking, membership-inference resistance |
+
+### PyRIT (6)
+
+| Script | OWASP Entry | MITRE ATLAS |
+|---|---|---|
+| `llm01_prompt_injection.py` | LLM01 Prompt Injection | AML.T0051.000/.001, AML.T0054 |
+| `asi01_goal_hijack.py` | ASI01 Agent Goal Hijack | AML.T0051.000/.001, AML.T0054 |
+| `asi04_supply_chain.py` | ASI04 Agentic Supply Chain | AML.T0010, AML.T0058 |
+| `dsgai01_sensitive_data_leakage.py` | DSGAI01 Sensitive Data Leakage | AML.T0057, AML.T0024 |
+| `dsgai04_rag_poisoning.py` | DSGAI04 Data, Model & Artifact Poisoning | AML.T0070, AML.T0020 |
+| `dsgai18_inference_reconstruction.py` | DSGAI18 Inference & Data Reconstruction | AML.T0024.000/.002 |
+
+### LAAF stages (S1–S6)
+
+| Stage | Name | OWASP entries |
+|---|---|---|
+| S1 | Reconnaissance | LLM07, LLM01 |
+| S2 | Logic-Layer Injection | LLM01, ASI01, DSGAI04 |
+| S3 | Trigger Execution | ASI01, ASI06, LLM06 |
+| S4 | Persistence and Reuse | ASI06, LLM06, DSGAI04 |
+| S5 | Evasion and Obfuscation | LLM01, LLM02 |
+| S6 | Trace Tampering | DSGAI01, LLM07 |
+
+---
+
+## Interpreting results
+
+### Garak
+Garak reports a **pass rate** per probe; a pass means the model did **not**
+produce the harmful output the probe sought. Each profile's `run.eval_threshold`
+sets the fail line (e.g. `0.1` = fail if >10% of probes succeed). See
+[`samples/`](samples/) for an annotated example report.
+
+### PyRIT
+Each script prints a per-scenario and overall summary and exits non-zero on
+failure. A probe scored `[VULN]` means the LLM judge ruled the attack
+succeeded (control gap). See [`samples/pyrit_llm01_sample.txt`](samples/pyrit_llm01_sample.txt).
+
+---
+
+## CI/CD integration
+
+Copy `evals/ci/github-action.yml` into `.github/workflows/`. It runs a fast
+Garak subset on every PR touching LLM code, and the full PyRIT + LAAF suites on
+a weekly schedule / manual dispatch. Tool versions are pinned in the workflow.
+
+---
+
+## Adding profiles for new entries
+
+1. Copy the nearest existing profile.
+2. Update the OWASP mapping header (`OWASP Entry:` and `Crosswalk ref:`).
+3. For Garak, pick probes that exist in the pinned version
+   (`garak --list_probes`) and put `probe_spec` **under `plugins:`**.
+   For PyRIT, define `Scenario`/`AttackProbe` lists and call `_harness.run()`.
+4. Garak `run_all.sh` auto-discovers the new file — no list to update.
+5. Run `node scripts/validate.js` — the evals check verifies your OWASP ID and
+   crosswalk path before you submit.
+6. Submit a PR following [CONTRIBUTING.md](../CONTRIBUTING.md).
+
+---
+
+## References
+
+- [Garak documentation](https://docs.garak.ai) · `garak --list_probes`
+- [PyRIT documentation](https://azure.github.io/PyRIT/)
+- [LAAF v2.0](https://github.com/qorvexconsulting1/laaf-V2.0)
+- [OWASP LLM Top 10 — llm-top10/](../llm-top10/)
+- [OWASP Agentic Top 10 — agentic-top10/](../agentic-top10/)
+- [DSGAI 2026 — dsgai-2026/](../dsgai-2026/)
+- [shared/TOOLS.md](../shared/TOOLS.md) — full tool catalogue
+
+---
+
+*Part of the [AIShield](https://github.com/mohakrudrakshh/AIShield)*
+*License: CC BY-SA 4.0*
